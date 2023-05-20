@@ -1,7 +1,7 @@
 # Textboost
 
 ## About Textboost
-TextBoost is in the words of being a Python library designed to enhance text readability for individuals with ADHD. It offers a unique solution by selectively bolding specific letters within words, providing visual cues that aid concentration and comprehension.
+TextBoost is in the works of being a Python library designed to enhance text readability for individuals with ADHD. It offers a unique solution by selectively bolding specific letters within words, providing visual cues that aid concentration and comprehension.
 
 The primary goal of TextBoost is to improve the reading experience for individuals with ADHD, who may struggle with maintaining focus and attention while reading. By applying customized bold formatting to text, TextBoost helps users quickly identify important letters within words, making the text more accessible and engaging.
 
