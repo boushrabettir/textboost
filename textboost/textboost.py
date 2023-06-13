@@ -1,3 +1,4 @@
+import argparse
 from textual.app import App, ComposeResult
 from textual.widgets import Button, Header, Footer, Static
 from textual.containers import ScrollableContainer
