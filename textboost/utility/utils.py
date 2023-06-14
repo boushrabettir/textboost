@@ -27,18 +27,11 @@ operations like help, exit, or command history.
 https://www.geeksforgeeks.org/convert-text-speech-python/
 https://github.com/nateshmbhat/pyttsx3
 """
-from PyPDF2 import PdfReader
-from fpdf import FPDF
+
 from typing import List
 import argparse
-from file import File
-
-# TODO -
-FILE_TYPE_LIST: List[File] = []
-PATH_TO_FILE: str = ""
-FONT_SIZE: str = ""
-BOLDING: str = ""
-FILE_NAME: str = "output"
+from file import File, FileUtilizer
+import file as fl
 
 
 def cli_command_utilizer() -> None:
@@ -67,26 +60,38 @@ def cli_command_utilizer() -> None:
         "--view-unprocessed-file", type=None, help="View all unprocessed file(s)."
     )
 
+    parser.add_argument(
+        "--delete-file", type=None, help="Deletes the most recent added file."
+    )
+
     arguments = parser.parse_args()
 
     # Conditions dependent on CLI command
-
+    # TODO
     if arguments.add_file:
+        # Adds the file with all the customizable aspects
         add_file_utilizer(arguments.add_file)
 
     if arguments.find_file:
-        """"""
+        # Finds a file that has been processed
         pass
 
-    elif arguments.process_file:
+    if arguments.process_file:
+        # Processes all the files from the List[File]
         process_file_utilizer()
 
+    if arguments.view_unprocessed_file:
+        # Views all unprocessed files from List[File]
+        pass
 
-def add_file_utilizer(file_list: List[str]) -> List[File]:
+    if arguments.delete_file:
+        # Deletes the most recent file added from the list
+        pass
+
+
+def add_file_utilizer(file_list: List[str]) -> FileUtilizer:
     """Adds a file to the list of files"""
-    # TODO - For the class, self.list
 
-    print(file_list[1])
     PATH_TO_FILE = file_list[0]
     FONT_SIZE = file_list[1]
     BOLDING = file_list[2]
@@ -94,32 +99,18 @@ def add_file_utilizer(file_list: List[str]) -> List[File]:
 
     file = File(PATH_TO_FILE, FONT_SIZE, BOLDING, FILE_NAME)
 
-    FILE_TYPE_LIST.append(file)
+    file_utilizer = FileUtilizer([])
+    file_utilizer.list.append(file)
 
-    return FILE_TYPE_LIST
+    return file_utilizer  # Returns a List[File]
+
+
+def access_unprocessed_list() -> List[File]:
+    """Helper function to access the current files in line"""
 
 
 def process_file_utilizer() -> List[File]:
-    """Processes each and every file in the List[File]"""
-    pass
+    """Processes each and every file in the List[File] with the functions below"""
 
-
-# -----------------------------------------------------
-
-
-def pdf_to_text_extraction(file: str) -> str:
-    """Extracts text from the given PDF file by the user"""
-    with open(file, "rb") as fl:
-        reader = PdfReader(fl)
-
-        extracted_text = ""
-
-        for current_page in reader.pages():
-            extracted_text += current_page.extract_text()
-
-    return extracted_text
-
-
-def customized_user_pdf_creation(extracted_text, font_size) -> None:
-    """Creates the customized PDF to the user"""
-    pass
+    # e.g. fl.pdf_to_text_extraction({FILE_PATH})
+    # e.g. fl.customized_user_pdf_creation({ARGS})
