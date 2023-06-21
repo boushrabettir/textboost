@@ -1,14 +1,15 @@
-import argparse
-from rich.console import RenderableType
 from textual import events
 from textual.app import App, ComposeResult
 from textual.widgets import Button, Header, Footer, Static, Input, Label
-from textual.widget import Widget
 from textual.containers import ScrollableContainer, Container
 from textual.reactive import reactive
 import utils as ut
 from textual.app import App
 from textual import events
+from textual.validation import Validator, Function
+from typing import List
+from textual import on
+import utils
 
 """
 
@@ -62,15 +63,44 @@ Design an interactive help system to provide guidance on available commands and 
 """
 
 
-class ActionsApp(App):
-    def action_set_background(self, color: str) -> None:
-        self.screen.styles.background = color
+class InputField(Static):
+    """An input field widget"""
 
-    def on_key(self, event: events.Key) -> None:
-        if event.key == "d":
-            self.action_set_background("red")
+    user_input = reactive("")
+
+    def on_input_submitted(self, event: Input.Submitted) -> str:
+        return event.input.value
+
+    def compose(self) -> ComposeResult:
+        """Child widgets for stopwatch"""
+
+        yield Input(placeholder="Place your command...", id="input")
+        yield Button("Submit", id="submit", variant="primary")
+        yield Label("First time? Write --help to get started!")
+
+
+class TextBoost(App):
+    """TextBoost App"""
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "submit":
+            input_field = self.query_one(InputField)  # How to grab input value?
+            # Below works
+            user_input = (
+                "--add-file C:/Users/boush/Downloads/test.pdf testing_with_splited"
+            )
+
+            splitted_input = utils.splitted_value(user_input)
+            ut.cli_command_utilizer(splitted_input)
+            user_checkout = "--view-unprocessed-files"
+            ut.cli_command_utilizer(user_checkout)
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        yield InputField()
+        yield Footer()
 
 
 if __name__ == "__main__":
-    app = ActionsApp()
+    app = TextBoost()
     app.run()

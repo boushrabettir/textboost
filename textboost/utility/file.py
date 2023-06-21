@@ -9,8 +9,6 @@ class File:
     """Struct to hold file related data"""
 
     file_path: str
-    font_size: str
-    bolding_per_word: str
     file_name: str
 
 
@@ -23,17 +21,25 @@ class FileUtilizer:
 
 def pdf_to_text_extraction(file: str) -> str:
     """Extracts text from the given PDF file by the user"""
+
     with open(file, "rb") as fl:
         reader = PdfReader(fl)
 
         extracted_text = ""
 
-        for current_page in reader.pages():
-            extracted_text += current_page.extract_text()
+        for current_page in range(len(reader.pages)):
+            page = reader.pages[current_page]
+            extracted_text += page.extract_text()
 
     return extracted_text
 
 
-def customized_user_pdf_creation(extracted_text, font_size) -> None:
+def customized_user_pdf_creation(file_path, name) -> None:
     """Creates the customized PDF to the user"""
-    pass
+
+    pdf = FPDF()
+    text = pdf_to_text_extraction(file_path)
+    pdf.add_page()
+    pdf.set_font("Arial", "I", 16)
+    pdf.cell(40, 10, text)
+    pdf.output(f"{name}.pdf", "F")
