@@ -126,6 +126,11 @@ def customized_user_pdf_creation(file_path, name) -> None:
         os.makedirs(folder_location)
 
     pdf.add_page()
-    pdf.set_font("Arial", "I", 16)
-    pdf.cell(40, 10, text)
+    pdf.set_font("Arial", size=16)
+
+    pdf.set_text_color(0, 0, 0)
+    average_cell_width = 150  # Set an average width for the cell
+    cell_height = 10  # Set the height of the cell
+
+    pdf.cell(average_cell_width, cell_height, text)
     pdf.output(f"./{folder_location}/{name}.pdf", "F")
