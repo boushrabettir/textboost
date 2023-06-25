@@ -12,7 +12,7 @@ TextBoost is an innovative tool that leverages the power of AI and machine learn
 - Run the script by typing `python ./textboost.py`
 - In the input bar type `--help` and to get started
 
-> **PLEASE NOTE THE FOLLOWING**<br/><br/>
+> **PLEASE NOTE THE FOLLOWING**<br/>
 > The updated PDF will be automatically placed in their respective folders dependent on the context of the text. The model will place your file in a folder similar to `textboost/history/your_file.py`<br/>
 > Make sure to take a look in the current directory you are in to find your outputted file
 
