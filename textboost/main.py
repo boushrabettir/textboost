@@ -2,7 +2,7 @@ from textual.app import App, ComposeResult
 from textual.widgets import Button, Header, Footer, Static, Input, Label
 from textual.containers import ScrollableContainer, Container
 from textual.reactive import reactive
-from textboost.utility import utils as ut
+from utility import utils as ut
 from textual.app import App
 from textual.validation import Validator, Function
 
@@ -73,6 +73,13 @@ class TextBoost(App):
         yield Footer()
 
 
-if __name__ == "__main__":
-    app = TextBoost()
-    app.run()
+# if __name__ == "__main__":
+#     app = TextBoost()
+#     app.run()
+
+user_input = ["--add-file C:/Users/boush/Downloads/md1.pdf md1"]
+
+splitted_input = ut.splitted_value(user_input)
+ut.cli_command_utilizer(splitted_input)
+
+ut.process_file_utilizer()

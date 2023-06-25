@@ -4,8 +4,7 @@ https://github.com/nateshmbhat/pyttsx3
 
 from typing import List, Tuple
 import os
-from file import File, FileUtilizer
-import file
+from utility.file import File, FileUtilizer
 from PyPDF2 import PdfReader
 from fpdf import FPDF
 from knn import knn
@@ -35,6 +34,7 @@ def splitted_value(value: str) -> List[str]:
     result = []
     for item in value:
         result.extend(item.split())
+    print(result)
     return result
 
 
@@ -95,29 +95,9 @@ def process_file_utilizer() -> None:
     """Processes each and every file in the FileUtilizer object with the functions below"""
 
     for i in file_utilizer.list:
-        file.customized_user_pdf_creation(i.file_path, i.file_name)
-
+        customized_user_pdf_creation(i.file_path, i.file_name)
+    print("Processing your file...")
     file_utilizer.list.clear()  # Clear the list once the pdf has been customized
-
-
-def return_list_folders() -> List[str]:
-    """Returns the list of folders"""
-    folder_path = "../archive"
-    folder_dir = os.listdir(folder_path)
-
-    return folder_dir
-
-
-def label_folders() -> dict:
-    """Labels each folder with their number"""
-
-    labeling_dict = dict()
-    folder_dir = return_list_folders()
-    print(folder_dir)
-    for i, folder in enumerate(folder_dir):
-        labeling_dict[folder] = i
-    print(labeling_dict)
-    return labeling_dict
 
 
 def pdf_to_text_extraction(file: str) -> str:
@@ -141,7 +121,11 @@ def customized_user_pdf_creation(file_path, name) -> None:
     pdf = FPDF()
     text = pdf_to_text_extraction(file_path)
     folder_location = knn.model_test(text)
+
+    if not os.path.exists(folder_location):
+        os.makedirs(folder_location)
+
     pdf.add_page()
-    pdf.set_font("Arial", 16)
+    pdf.set_font("Arial", "I", 16)
     pdf.cell(40, 10, text)
-    pdf.output(f"{folder_location}/{name}.pdf", "F")
+    pdf.output(f"./{folder_location}/{name}.pdf", "F")
