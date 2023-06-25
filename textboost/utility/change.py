@@ -1,7 +1,7 @@
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from ..utility import utils as ut
+import utils as ut
 import os
 from typing import Tuple, List
 import string

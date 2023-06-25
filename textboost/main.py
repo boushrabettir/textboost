@@ -2,7 +2,7 @@ from textual.app import App, ComposeResult
 from textual.widgets import Button, Header, Footer, Static, Input, Label
 from textual.containers import ScrollableContainer, Container
 from textual.reactive import reactive
-from .utility import utils as ut
+from textboost.utility import utils as ut
 from textual.app import App
 from textual.validation import Validator, Function
 
@@ -58,9 +58,9 @@ class TextBoost(App):
         if event.button.id == "submit":
             input_field = self.query_one(InputField)  # How to grab input value?
             # Testing - will delete all of this (works)
-            user_input = (
+            user_input = [
                 "--add-file C:/Users/boush/Downloads/test.pdf testing_with_splited"
-            )
+            ]
 
             splitted_input = ut.splitted_value(user_input)
             ut.cli_command_utilizer(splitted_input)

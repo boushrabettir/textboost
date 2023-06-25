@@ -1,7 +1,7 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import KNeighborsClassifier
 import numpy as np
-from ..utility import utils as ut
+import change as ch
 
 
 class KNearestNeighbors:
@@ -46,12 +46,12 @@ class KNearestNeighbors:
         print(closest_index)
         return closest_index
 
-    def split_x_y() -> dict:
+    def split_x_y(self) -> dict:
         """Splits data into X_train and y_train"""
 
         X_train = []
         y_train = []
-        training_data = ut.merge_training_data()
+        training_data = ch.merge_training_data()
 
         for i in training_data:
             X_train.append(i[0])
@@ -69,13 +69,16 @@ def model_test(user_input) -> str:
     X_train = training_data["X_train"]
     y_train = training_data["y_train"]
 
-    X_train_preprocess = ut.stop_words_removal(X_train)
+    X_train_preprocess = ch.stop_words_removal(X_train)
     X_train_transformed = knn.transform_list(X_train_preprocess)
 
     knn.fit_list(X_train_transformed, y_train)
 
-    test = [user_input]
+    test = ["Potato"]
     new_test = knn.tdif.transform(test)
     predicted = knn.KNN.predict(new_test)
-
+    print(knn.predict_outcome(predicted))
     return knn.predict_outcome(predicted)
+
+
+model_test("nice")
