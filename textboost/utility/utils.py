@@ -97,7 +97,7 @@ def process_file_utilizer() -> None:
 
 def return_list_folders() -> List[str]:
     """Returns the list of folders"""
-    folder_path = "/content/archive"
+    folder_path = "../archive"
     folder_dir = os.listdir(folder_path)
 
     return folder_dir

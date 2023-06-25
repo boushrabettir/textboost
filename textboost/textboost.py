@@ -48,6 +48,9 @@ class InputField(Static):
         yield Label("First time? Write --help to get started!")
 
 
+# TODO - Add CSS
+
+
 class TextBoost(App):
     """TextBoost App"""
 

@@ -35,7 +35,7 @@ def merge_training_data() -> List[List[Tuple[str, int]]]:
     """Merges the data together within each folder - X_train and y_train"""
 
     labeling = ut.label_folders()
-    folder_path = "/content/archive"
+    folder_path = "../archive"
     folder_dir = ut.return_list_folders()
     all_rows = []
 
