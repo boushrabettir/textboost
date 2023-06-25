@@ -5,6 +5,9 @@ https://github.com/nateshmbhat/pyttsx3
 from typing import List
 from file import File, FileUtilizer
 import file
+import string
+import os
+from typing import Tuple, List
 
 file_utilizer = FileUtilizer([])
 
@@ -27,12 +30,16 @@ def cli_command_utilizer(input: any) -> str:
 
 def splitted_value(value: str) -> List[str]:
     """Splits list into its corresponding list"""
-
     return value.split()
 
 
 def help() -> str:
     """Returns the list of avaliable commands"""
+
+    return """
+    --add-file []
+    
+    """
 
 
 def return_value(value: str) -> str:
@@ -84,3 +91,25 @@ def process_file_utilizer() -> None:
 
     for i in file_utilizer.list:
         file.customized_user_pdf_creation(i.file_path, i.file_name)
+
+    file_utilizer.list.clear()  # Clear the list once the pdf has been customized
+
+
+def return_list_folders() -> List[str]:
+    """Returns the list of folders"""
+    folder_path = "/content/archive"
+    folder_dir = os.listdir(folder_path)
+
+    return folder_dir
+
+
+def label_folders() -> dict:
+    """Labels each folder with their number"""
+
+    labeling_dict = dict()
+    folder_dir = return_list_folders()
+    print(folder_dir)
+    for i, folder in enumerate(folder_dir):
+        labeling_dict[folder] = i
+    print(labeling_dict)
+    return labeling_dict

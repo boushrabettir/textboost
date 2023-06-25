@@ -1,54 +1,21 @@
-from textual import events
 from textual.app import App, ComposeResult
 from textual.widgets import Button, Header, Footer, Static, Input, Label
 from textual.containers import ScrollableContainer, Container
 from textual.reactive import reactive
-import utils as ut
+from .utility import utils as ut
 from textual.app import App
-from textual import events
 from textual.validation import Validator, Function
-from typing import List
-from textual import on
-import utils
 
 """
-
-Design Steps:
-
-User Input Widget:
-
-Create a widget that allows users to enter input.
-Track the user input, possibly using the query_one function.
-
-Input Processing:
-
-Upon pressing the Enter key, capture the entered value.
-Call the utility function with the captured input as an argument.
-
 Input Validation:
 
 Utilize a Validator built-in widget to validate the user input.
 Ensure that the user input includes the "--command-type {args}" format.
 
-Utility Function Execution:
-
-Split the validated user input into a list of command and arguments.
-Example: User input "--add-file potato 3 4 chicken" should be split into ["--add-file", "potato 3 4 chicken"].
-Call the utility function, passing the command and arguments as parameters.
-Example: " ".join([x for x in arguments.{ARGUMENT}])
-All types of commands are in utils.py
-
 Message Prompting:
 
 Include a message prompt in the middle of executing each function, similar to the prompts in utils.py.
 This message should provide feedback or instructions during the execution process.
-
-argparse Integration:
-
-Consider using the argparse library for command-line parsing.
-Implement argparse to handle the command-line arguments passed to the utility function.
-This will enable a structured and robust way to parse arguments and handle errors.
-
 Error Handling and Validation:
 
 Ensure that the widget includes proper error handling.
@@ -61,6 +28,8 @@ Consider additional widgets or user interface elements to enhance the user exper
 Implement error logging to capture and record any errors encountered during execution.
 Design an interactive help system to provide guidance on available commands and their usage.
 """
+
+# TODO - Grabbing input value from input widget
 
 
 class InputField(Static):
@@ -85,12 +54,12 @@ class TextBoost(App):
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "submit":
             input_field = self.query_one(InputField)  # How to grab input value?
-            # Below works
+            # Testing - will delete all of this (works)
             user_input = (
                 "--add-file C:/Users/boush/Downloads/test.pdf testing_with_splited"
             )
 
-            splitted_input = utils.splitted_value(user_input)
+            splitted_input = ut.splitted_value(user_input)
             ut.cli_command_utilizer(splitted_input)
             user_checkout = "--view-unprocessed-files"
             ut.cli_command_utilizer(user_checkout)

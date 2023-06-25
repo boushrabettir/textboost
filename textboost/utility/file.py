@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import List
 from PyPDF2 import PdfReader
 from fpdf import FPDF
+from ..knn import knn
 
 
 @dataclass
@@ -14,7 +15,7 @@ class File:
 
 @dataclass
 class FileUtilizer:
-    """Holds the current List[File]"""
+    """Struct which holds the current List[File]"""
 
     list: List[File]
 
@@ -39,7 +40,8 @@ def customized_user_pdf_creation(file_path, name) -> None:
 
     pdf = FPDF()
     text = pdf_to_text_extraction(file_path)
+    folder_location = knn.model_test(text)
     pdf.add_page()
-    pdf.set_font("Arial", "I", 16)
+    pdf.set_font("Arial", 16)
     pdf.cell(40, 10, text)
-    pdf.output(f"{name}.pdf", "F")
+    pdf.output(f"{folder_location}/{name}.pdf", "F")
