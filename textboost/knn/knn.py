@@ -12,6 +12,9 @@ nltk.download("stopwords")
 nltk.download("punkt")
 
 
+# TODO - Change absolute path to relative
+
+
 def stop_words_removal(X_train) -> List[str]:
     """Removes stop words from the corpus and cleans up punctuation"""
 

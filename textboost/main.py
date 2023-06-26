@@ -36,9 +36,11 @@ class InputField(Static):
     """An input field widget"""
 
     user_input = reactive("")
+    user_splitted = reactive([])
 
-    def on_input_submitted(self, event: Input.Submitted) -> str:
-        return event.input.value
+    def on_input_changed(self, event: Input.Changed) -> str:
+        self.user_input = event.input.value
+        # self.user_splitted = ut.splitted_value(self.user_inputs)
 
     def compose(self) -> ComposeResult:
         """Child widgets for stopwatch"""
@@ -48,24 +50,17 @@ class InputField(Static):
         yield Label("First time? Write --help to get started!")
 
 
-# TODO - Add CSS
-
-
 class TextBoost(App):
     """TextBoost App"""
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "submit":
-            input_field = self.query_one(InputField)  # How to grab input value?
-            # Testing - will delete all of this (works)
-            user_input = [
-                "--add-file C:/Users/boush/Downloads/test.pdf testing_with_splited"
-            ]
+            self.user_input = self.query_one(InputField).user_input
+            splitted = ut.splitted_value(self.user_input)
+            with open("debug.txt", "w") as f:
+                f.write(self.user_input)
 
-            splitted_input = ut.splitted_value(user_input)
-            ut.cli_command_utilizer(splitted_input)
-            user_checkout = "--view-unprocessed-files"
-            ut.cli_command_utilizer(user_checkout)
+            ut.cli_command_utilizer(splitted)
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -73,13 +68,7 @@ class TextBoost(App):
         yield Footer()
 
 
+# textboost\pre-modified\foody.pdf
 # if __name__ == "__main__":
 #     app = TextBoost()
 #     app.run()
-
-user_input = ["--add-file C:/Users/boush/Downloads/md1.pdf md1"]
-
-splitted_input = ut.splitted_value(user_input)
-ut.cli_command_utilizer(splitted_input)
-
-ut.process_file_utilizer()
