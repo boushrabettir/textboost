@@ -8,10 +8,9 @@ from utility.file import File, FileUtilizer
 from PyPDF2 import PdfReader
 from knn import knn
 import subprocess
-import pdfkit
 
 
-file_utilizer = FileUtilizer([])
+file_utilizer = FileUtilizer([])  # Holds the List[File]
 
 
 def cli_command_utilizer(input: any) -> str:
@@ -32,6 +31,7 @@ def cli_command_utilizer(input: any) -> str:
 
 def splitted_value(values: str) -> List[str]:
     """Splits a list into its corresponding list"""
+
     return values.split()
 
 
@@ -40,7 +40,7 @@ def help() -> str:
 
 
 def return_value(value: str) -> str:
-    """Checks if the user command exists within the validation list"""
+    """Validates the users input"""
 
     validator = [
         "--add-file",
@@ -59,7 +59,7 @@ def return_value(value: str) -> str:
 
 
 def add_file_utilizer(file_list: List[str]) -> str:
-    """Adds a file to the list of files"""
+    """Adds a file to the list of file(s)"""
 
     PATH_TO_FILE, FILE_NAME = file_list
     file = File(PATH_TO_FILE, FILE_NAME)
@@ -69,7 +69,7 @@ def add_file_utilizer(file_list: List[str]) -> str:
 
 
 def access_unprocessed_list() -> str:
-    """Helper function to access the current files in line"""
+    """Helper function to access the current unprocessed file(s)"""
 
     final_str = ""
     for i in file_utilizer.list:
@@ -82,7 +82,7 @@ def access_unprocessed_list() -> str:
 
 
 def process_file_utilizer() -> None:
-    """Processes each and every file in the FileUtilizer object with the functions below"""
+    """Processes file(s) from FileUtilizer"""
 
     for i in file_utilizer.list:
         customized_user_pdf_creation(i.file_path, i.file_name)
@@ -106,7 +106,7 @@ def pdf_to_text_extraction(file: str) -> str:
 
 
 def str_to_md(text: str, name: str, folder: str) -> None:
-    """Converts string to Markdown file"""
+    """Converts string to markdown file"""
 
     words = text.split()
     formatted = [f"**{word[:2]}**{word[2:]}" for word in words]
@@ -124,7 +124,7 @@ def str_to_md(text: str, name: str, folder: str) -> None:
 
 
 def md_to_pdf(name: str, folder: str) -> None:
-    """Converts markdown file to pdf file"""
+    """Converts markdown file to PDF file"""
 
     try:
         subprocess.run(

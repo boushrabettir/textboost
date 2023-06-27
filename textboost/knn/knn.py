@@ -21,15 +21,21 @@ class KNearestNeighbors:
         self.KNN = KNeighborsClassifier(n_neighbors=3)
 
     def fit_list(self, X, y) -> None:
+        """Fits X and y training data"""
+
         self.X_train = X
         self.y_train = y
         self.KNN.fit(self.X_train, self.y_train)
 
     def transform_list(self, X) -> TfidfVectorizer:
+        """Transforms X training data"""
+
         self.X_train = X
         return self.tdif.fit_transform(self.X_train)
 
     def predict_outcome(self, i) -> str:
+        """Returns the value of the models output"""
+
         labels = {
             0: "business",
             1: "entertainment",
@@ -133,10 +139,10 @@ def stop_words_removal(X_train) -> List[str]:
 
 
 def merge_training_data() -> List[List[Tuple[str, int]]]:
-    """Merges the data together within each folder - X_train and y_train"""
+    """Merges the data within a list of tuples, where each tuple consists of two values: the first value containing the text content, and the second value containing the label"""
 
     labeling = label_folders()
-    folder_path = "C:/Users/boush/OneDrive/Documents/GitHub/textboost/textboost/archive"
+    folder_path = "archive"
     folder_dir = return_list_folders()
     all_rows = []
 

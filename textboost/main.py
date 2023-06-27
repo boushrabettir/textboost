@@ -1,9 +1,8 @@
 from textual.app import App, ComposeResult
 from textual.widgets import Button, Header, Footer, Static, Input, Label
-from textual.containers import ScrollableContainer, Container
+from textual.containers import ScrollableContainer, Container, Horizontal, Vertical
 from textual.reactive import reactive
 from utility import utils as ut
-from textual.app import App
 from textual.validation import Validator, Function
 
 """
@@ -32,19 +31,20 @@ Design an interactive help system to provide guidance on available commands and 
 # TODO - Grabbing input value from input widget
 
 
+class Intro(Static):
+    """An introduction text widget"""
+
+
 class InputField(Static):
     """An input field widget"""
 
     user_input = reactive("")
-    user_splitted = reactive([])
 
     def on_input_changed(self, event: Input.Changed) -> str:
         self.user_input = event.input.value
-        # self.user_splitted = ut.splitted_value(self.user_inputs)
 
+    # TODO - CSS bug?
     def compose(self) -> ComposeResult:
-        """Child widgets for stopwatch"""
-
         yield Input(placeholder="Place your command...", id="input")
         yield Button("Submit", id="submit", variant="primary")
         yield Label("First time? Write --help to get started!")
@@ -52,6 +52,8 @@ class InputField(Static):
 
 class TextBoost(App):
     """TextBoost App"""
+
+    CSS_PATH = "main.css"
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "submit":
@@ -64,15 +66,10 @@ class TextBoost(App):
 
     def compose(self) -> ComposeResult:
         yield Header()
-        yield InputField()
         yield Footer()
+        yield InputField()
 
 
-# textboost\pre-modified\foody.pdf
-# if __name__ == "__main__":
-#     app = TextBoost()
-#     app.run()
-
-
-ut.add_file_utilizer(["./pre-modified/sp.pdf", "Nice"])
-ut.process_file_utilizer()
+if __name__ == "__main__":
+    app = TextBoost()
+    app.run()
