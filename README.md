@@ -15,7 +15,7 @@ Powered by advanced machine learning algorithms, TextBoost offers additional dat
 - Git clone this repository by running the command `https://github.com/boushrabettir/textboost.git`
 - Move to the `textboost` folder by running `cd ./textboost`
 - Pip install all the requirements by running `pip install -r requirements.txt`
-- Run the script by typing `python ./textboost.py`
+- Run the script by typing `python ./main.py`
 - In the input bar type `--help` and to get started
 
 > **PLEASE NOTE THE FOLLOWING**<br/>
