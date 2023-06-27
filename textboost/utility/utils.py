@@ -2,14 +2,14 @@
 https://github.com/nateshmbhat/pyttsx3
 """
 
-from typing import List, Tuple
+from typing import List
 import os
 from utility.file import File, FileUtilizer
 from PyPDF2 import PdfReader
-from fpdf import FPDF
 from knn import knn
+import subprocess
+import pdfkit
 
-# TODO -> MD -> PDF -> HTML
 
 file_utilizer = FileUtilizer([])
 
@@ -100,40 +100,54 @@ def pdf_to_text_extraction(file: str) -> str:
 
         for current_page in range(len(reader.pages)):
             page = reader.pages[current_page]
-            extracted_text += page.extract_text()
+            extracted_text += page.extract_text().replace("\n", " ")
 
-    words = extracted_text.split()
-    formatted = []
+    return extracted_text
 
-    # TODO
-    for word in words:
-        bold = ""
-        for i in range(0, len(word), 2):
-            bold += f"\033[1m{word[i : i + 2]}\033[0m"
-        formatted.append(bold)
 
-    return " ".join(formatted)
+def str_to_md(text: str, name: str, folder: str) -> None:
+    """Converts string to Markdown file"""
+
+    words = text.split()
+    formatted = [f"**{word[:2]}**{word[2:]}" for word in words]
+    final_string = " ".join(formatted)
+
+    directory = "modified"
+    file_path = os.path.join(directory, folder, f"{name}.md")
+
+    try:
+        with open(file_path, "w") as md:
+            md.write(final_string)
+        print(f"Markdown file '{name}.md' created successfully.")
+    except Exception as e:
+        print(f"Error occurred while creating the Markdown file: {str(e)}")
+
+
+def md_to_pdf(name: str, folder: str) -> None:
+    """Converts markdown file to pdf file"""
+
+    try:
+        subprocess.run(
+            f"mdpdf -o modified/{folder}/{name}.pdf modified/{folder}/{name}.md "
+        )
+    except subprocess.CalledProcessError:
+        print("Error calling subprocess.")
+    except FileNotFoundError:
+        print(f"File '{name}.md' not found.")
+
+    os.remove(f"modified/{folder}/{name}.md")
 
 
 def customized_user_pdf_creation(file_path, name) -> None:
     """Creates the customized PDF for the user"""
 
-    pdf = FPDF()
     text = pdf_to_text_extraction(file_path)
+
     folder_location = knn.model_test(text)
 
     modified_folder = f"./modified/{folder_location}"
     if not os.path.exists(modified_folder):
         os.makedirs(modified_folder)
 
-    pdf.add_page()
-    pdf.set_font("Arial", size=16)
-    pdf.set_text_color(0, 0, 0)
-
-    # TODO
-    cell_width = 150
-    line_height = 10
-
-    pdf.multi_cell(cell_width, line_height, text, 0, "L", False)
-
-    pdf.output(f"{modified_folder}/{name}.pdf", "F")
+    str_to_md(text, name, folder_location)
+    md_to_pdf(name, folder_location)

@@ -72,3 +72,7 @@ class TextBoost(App):
 # if __name__ == "__main__":
 #     app = TextBoost()
 #     app.run()
+
+
+ut.add_file_utilizer(["./pre-modified/sp.pdf", "Nice"])
+ut.process_file_utilizer()
