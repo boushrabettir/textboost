@@ -4,7 +4,7 @@ https://github.com/nateshmbhat/pyttsx3
 
 from typing import List
 import os
-from utility.file import File, FileUtilizer
+from utility.file import File, FileUtilizer, key_type, index
 from PyPDF2 import PdfReader
 from knn import knn
 import subprocess
@@ -100,17 +100,28 @@ def pdf_to_text_extraction(file: str) -> str:
 
         for current_page in range(len(reader.pages)):
             page = reader.pages[current_page]
-            extracted_text += page.extract_text().replace("\n", " ")
+            page_text = page.extract_text()
+
+            extracted_text += page_text
 
     return extracted_text
 
 
+# TODO
 def str_to_md(text: str, name: str, folder: str) -> None:
     """Converts string to markdown file"""
-
+    index = 1
+    formatted_list = []
     words = text.split()
-    formatted = [f"**{word[:2]}**{word[2:]}" for word in words]
-    final_string = " ".join(formatted)
+    for word in words:
+        if word in key_type:
+            formatted_list.append(key_type[word])
+            if word == f"{index}" or word == f"{index}.":
+                index += 1
+        else:
+            formatted_list.append(f"**{word[:2]}**{word[2:]}")
+
+    final_string = " ".join(formatted_list)
 
     directory = "modified"
     file_path = os.path.join(directory, folder, f"{name}.md")

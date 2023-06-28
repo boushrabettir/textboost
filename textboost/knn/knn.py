@@ -44,7 +44,7 @@ class KNearestNeighbors:
             4: "medical",
             5: "politics",
             6: "sport",
-            7: "technologie",
+            7: "technology",
         }
 
         return labels[i[0]]
