@@ -9,6 +9,7 @@ TextBoost is an innovative tool that leverages the power of AI and machine learn
 Powered by advanced machine learning algorithms, TextBoost offers additional data science-driven features that further enrich the user experience:
 
 - **Folder Management within "Downloads"**: TextBoost provides the capability to organize files within the "Downloads" directory. The model can create subsections such as `modified/food`, `modified/space`, `modified/politics`, and more and store the respected pdf within their folder.
+- **Text Summarization**: Textboost provides the capability to summarize the text within a given PDF. Optionally, the user can turn on this feature and the summarization will appear at the last page of the PDF.
 
 ## Usage
 
