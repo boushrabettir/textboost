@@ -4,11 +4,10 @@ https://github.com/nateshmbhat/pyttsx3
 
 from typing import List
 import os
-from utility.file import File, FileUtilizer, key_type, index
+from utility.file import File, FileUtilizer
 from PyPDF2 import PdfReader
 from knn import knn
-import subprocess
-
+import conversion as cv 
 
 file_utilizer = FileUtilizer([])  # Holds the List[File]
 
@@ -25,6 +24,9 @@ def cli_command_utilizer(input: any) -> str:
             process_file_utilizer()
         if input[0] == "--view-unprocessed-files":
             access_unprocessed_list()
+        if input[0] == "--delete-file":
+            # TODO
+            delete_file(input[1])
     else:
         return "Your command is not valid. Please type --help and try again. "
 
@@ -33,11 +35,6 @@ def splitted_value(values: str) -> List[str]:
     """Splits a list into its corresponding list"""
 
     return values.split()
-
-
-def help() -> str:
-    """Returns the list of avaliable commands"""
-
 
 def return_value(value: str) -> str:
     """Validates the users input"""
@@ -48,14 +45,10 @@ def return_value(value: str) -> str:
         "--delete-file",
         "--process-file",
         "--view-unprocessed-file",
-        "--read-file",
-        "--help",
     ]
 
-    if any(value[0] == command for command in validator):
-        return True
-
-    return False
+    if not any(value[0] == command for command in validator):
+        return "This is not a valid command. Please type --help and try again."
 
 
 def add_file_utilizer(file_list: List[str]) -> str:
@@ -80,6 +73,17 @@ def access_unprocessed_list() -> str:
 
     return final_str
 
+def delete_file(file_name: str) -> None:
+    """Deletes a specific file if given by user else removes the most recent File object"""
+
+    if file_name:
+        for file in file_utilizer:
+            if file_name in file[0]:
+                file_utilizer.list.pop()
+                break    
+    else:
+        file_utilizer.list.pop()
+
 
 def process_file_utilizer() -> None:
     """Processes file(s) from FileUtilizer"""
@@ -88,7 +92,6 @@ def process_file_utilizer() -> None:
         customized_user_pdf_creation(i.file_path, i.file_name)
     print("Processing your file...")
     file_utilizer.list.clear()  # Clear the list once the pdf has been customized
-
 
 def pdf_to_text_extraction(file: str) -> str:
     """Extracts text from the given PDF file by the user"""
@@ -106,49 +109,6 @@ def pdf_to_text_extraction(file: str) -> str:
 
     return extracted_text
 
-
-# TODO
-def str_to_md(text: str, name: str, folder: str) -> None:
-    """Converts string to markdown file"""
-    index = 1
-    formatted_list = []
-    words = text.split()
-    for word in words:
-        if word in key_type:
-            formatted_list.append(key_type[word])
-            if word == f"{index}" or word == f"{index}.":
-                index += 1
-        else:
-            formatted_list.append(f"**{word[:2]}**{word[2:]}")
-
-    final_string = " ".join(formatted_list)
-
-    directory = "modified"
-    file_path = os.path.join(directory, folder, f"{name}.md")
-
-    try:
-        with open(file_path, "w") as md:
-            md.write(final_string)
-        print(f"Markdown file '{name}.md' created successfully.")
-    except Exception as e:
-        print(f"Error occurred while creating the Markdown file: {str(e)}")
-
-
-def md_to_pdf(name: str, folder: str) -> None:
-    """Converts markdown file to PDF file"""
-
-    try:
-        subprocess.run(
-            f"mdpdf -o modified/{folder}/{name}.pdf modified/{folder}/{name}.md "
-        )
-    except subprocess.CalledProcessError:
-        print("Error calling subprocess.")
-    except FileNotFoundError:
-        print(f"File '{name}.md' not found.")
-
-    os.remove(f"modified/{folder}/{name}.md")
-
-
 def customized_user_pdf_creation(file_path, name) -> None:
     """Creates the customized PDF for the user"""
 
@@ -160,5 +120,9 @@ def customized_user_pdf_creation(file_path, name) -> None:
     if not os.path.exists(modified_folder):
         os.makedirs(modified_folder)
 
-    str_to_md(text, name, folder_location)
-    md_to_pdf(name, folder_location)
+    cv.pdf_to_html(file_path)
+    cv.html_to_md(file_path)
+    cv.md_to_pdf(modified_folder, name)
+
+    # cv.str_to_md(text, name, folder_location)
+    # cv.md_to_pdf(name, folder_location)
