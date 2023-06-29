@@ -17,11 +17,11 @@ Powered by advanced machine learning algorithms, TextBoost offers additional dat
 - Move to the `textboost` directory by running `cd ./textboost`
 - Pip install all the requirements by running `pip install -r requirements.txt`
 - Run the script by typing `python ./main.py`
-- In the input bar type `--help` and to get started
+- Navigate to the help menu to get started
 
 > **PLEASE NOTE THE FOLLOWING**<br/>
-> The updated PDF will be automatically placed in their respective folders dependent on the context of the text. The model will place your file in a folder similar to `textboost/modified/space/your_file.py`<br/>
-> Make sure to take a look in the current directory you are in to find your outputted file
+> The updated PDF will be automatically placed in their respective folders dependent on the context of the text. The model will place your file in a folder similar to `textboost/modified/space/your_file.py`.<br/>
+> Make sure to take a look in the current directory you are in to find your outputted file.
 
 ## Key Features
 
@@ -48,7 +48,7 @@ Delete below this line when completed with this branch
 - [ ] Figure out side cases
 - [ ] Fix the model (inconsistent in placing pdfs in their respective folders)
 - [ ] Create CSS
-- [ ] Add all the other CLI commands that I have to do in `utils.py`
+- [x] Add all the other CLI commands that I have to do in `utils.py`
 - [ ] Add font size change capabilites as well as how many letters per word to be bolded
 
 ## To Do in Next Branch:
