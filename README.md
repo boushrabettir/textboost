@@ -13,7 +13,7 @@ Powered by advanced machine learning algorithms, TextBoost offers additional dat
 
 ## Usage
 
-- Install [Python](https://www.python.org/downloads/)
+- Install [Python](https://www.python.org/downloads/) and [Pandoc](https://pandoc.org/installing.html)
 - Git clone this repository by running the command `https://github.com/boushrabettir/textboost.git`
 - Move to the `textboost` directory by running `cd ./textboost`
 - Pip install all the requirements by running `pip install -r requirements.txt`
