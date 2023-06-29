@@ -39,7 +39,7 @@ def splitted_value(values: str) -> List[str]:
 def return_value(value: str) -> str:
     """Validates the users input"""
 
-    validator = [
+    validation_list = [
         "--add-file",
         "--find-file",
         "--delete-file",
@@ -47,7 +47,7 @@ def return_value(value: str) -> str:
         "--view-unprocessed-file",
     ]
 
-    if not any(value[0] == command for command in validator):
+    if not any(value[0] == command for command in validation_list):
         return "This is not a valid command. Please type --help and try again."
 
 
@@ -73,7 +73,7 @@ def access_unprocessed_list() -> str:
 
     return final_str
 
-def delete_file(file_name: str) -> None:
+def delete_file(file_name: str) -> str:
     """Deletes a specific file if given by user else removes the most recent File object"""
 
     if file_name:
@@ -83,6 +83,9 @@ def delete_file(file_name: str) -> None:
                 break    
     else:
         file_utilizer.list.pop()
+
+
+    return "Sucessfully deleted. Please add a file or process your current file(s)."
 
 
 def process_file_utilizer() -> None:
@@ -123,6 +126,3 @@ def customized_user_pdf_creation(file_path, name) -> None:
     cv.pdf_to_html(file_path)
     cv.html_to_md(file_path)
     cv.md_to_pdf(modified_folder, name)
-
-    # cv.str_to_md(text, name, folder_location)
-    # cv.md_to_pdf(name, folder_location)
