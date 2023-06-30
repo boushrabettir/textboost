@@ -7,7 +7,8 @@ import os
 from utility.file import File, FileUtilizer
 from PyPDF2 import PdfReader
 from knn import knn
-import conversion as cv 
+from knn import change as cv
+import fitz
 
 file_utilizer = FileUtilizer([])  # Holds the List[File]
 
@@ -35,6 +36,7 @@ def splitted_value(values: str) -> List[str]:
     """Splits a list into its corresponding list"""
 
     return values.split()
+
 
 def return_value(value: str) -> str:
     """Validates the users input"""
@@ -73,6 +75,7 @@ def access_unprocessed_list() -> str:
 
     return final_str
 
+
 def delete_file(file_name: str) -> str:
     """Deletes a specific file if given by user else removes the most recent File object"""
 
@@ -80,10 +83,9 @@ def delete_file(file_name: str) -> str:
         for file in file_utilizer:
             if file_name in file[0]:
                 file_utilizer.list.pop()
-                break    
+                break
     else:
         file_utilizer.list.pop()
-
 
     return "Sucessfully deleted. Please add a file or process your current file(s)."
 
@@ -96,21 +98,18 @@ def process_file_utilizer() -> None:
     print("Processing your file...")
     file_utilizer.list.clear()  # Clear the list once the pdf has been customized
 
+
 def pdf_to_text_extraction(file: str) -> str:
     """Extracts text from the given PDF file by the user"""
 
-    with open(file, "rb") as fl:
-        reader = PdfReader(fl)
+    doc = fitz.open(file)
+    text = ""
 
-        extracted_text = ""
+    for page in doc:
+        text += page.get_text()
 
-        for current_page in range(len(reader.pages)):
-            page = reader.pages[current_page]
-            page_text = page.extract_text()
+    return text
 
-            extracted_text += page_text
-
-    return extracted_text
 
 def customized_user_pdf_creation(file_path, name) -> None:
     """Creates the customized PDF for the user"""
@@ -123,6 +122,7 @@ def customized_user_pdf_creation(file_path, name) -> None:
     if not os.path.exists(modified_folder):
         os.makedirs(modified_folder)
 
-    cv.pdf_to_html(file_path)
-    cv.html_to_md(file_path)
+    cv.pdf_to_html(file_path, modified_folder)
+    cv.html_to_md(modified_folder)
+    # cv.md_to_pdf_t2(modified_folder, name)
     cv.md_to_pdf(modified_folder, name)

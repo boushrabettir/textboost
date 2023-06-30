@@ -70,6 +70,11 @@ class TextBoost(App):
         yield InputField()
 
 
-if __name__ == "__main__":
-    app = TextBoost()
-    app.run()
+# if __name__ == "__main__":
+#     app = TextBoost()
+#     app.run()
+# ut.customized_user_pdf_creation("./pre-modified/horror.pdf", "testingwow")
+
+
+ut.customized_user_pdf_creation("./pre-modified/button.pdf", "testingbtn2")
+# ut.pdf_to_text_try_2("./pre-modified/aaa.pdf")
