@@ -122,7 +122,16 @@ def customized_user_pdf_creation(file_path, name) -> None:
     if not os.path.exists(modified_folder):
         os.makedirs(modified_folder)
 
-    cv.pdf_to_html(file_path, modified_folder)
-    cv.html_to_md(modified_folder)
-    # cv.md_to_pdf_t2(modified_folder, name)
-    cv.md_to_pdf(modified_folder, name)
+    # cv.pdf_to_html(file_path, modified_folder)
+    # cv.html_to_md(modified_folder)
+    # # cv.md_to_pdf_t2(modified_folder, name)
+    # cv.md_to_pdf(modified_folder, name)
+
+    # cv.pdf_to_md_tesintg(file_path)
+
+    # text = cv.modify_extracted_text(file_path)
+    # print(text)
+
+    cv.html_content(modified_folder, file_path)
+    cv.create_pdf_content(modified_folder, name)
+    # cv.create_pdf(modified_folder, name, text)
