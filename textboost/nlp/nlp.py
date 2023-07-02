@@ -1,20 +1,4 @@
 """
-Train Word2Vec embeddings: Use your 
-dataset to train Word2Vec embeddings, 
-which capture semantic relationships 
-between words. Word2Vec learns word 
-embeddings by predicting the context 
-of words in a large corpus of text. 
-This step helps in representing words 
-as dense vectors in a multi-dimensional space.
-
-Prepare the data: Tokenize your input 
-text into sentences or individual words 
-and convert them into Word2Vec embeddings. 
-You can use the trained Word2Vec model to 
-convert each word or sentence into its 
-corresponding vector representation.
-
 Apply BERT model: BERT is a transformer-based model
 that can understand the contextual relationships 
 between words. You can use a pre-trained BERT model 
@@ -38,11 +22,11 @@ import json
 import tensorflow as tf
 import numpy as np
 
-# Using BERT?
-from transformers import BertTokenizer, BertForSequenceClassification
 
 # TODO - Pip install below
-from gensim.models import Word2Vec
+
+import tensorflow_hub as hb
+import tensorflow_text as txt
 
 
 def retrieve_data() -> List[object]:
@@ -52,23 +36,40 @@ def retrieve_data() -> List[object]:
     with open("./nlp/data.json", "r") as file:
         data = json.load(file)
 
-    return [i["description"] for i in data]
+    return data
 
 
-def vectorize_preprocessed_data() -> object:
-    """Preprocesses data to a vectorized format"""
+# TODO  - Go in depth with what I've learned.
+# Google colab -> https://colab.research.google.com/drive/1E1OqfBmSRNFbg4OcMnrAPT_1k4HJoSZS#scrollTo=MJ7PXwkwfWpJ
 
+
+def vectorize_data_t2() -> dict:
+    """Returns the vectorized descriptions using BERT"""
+
+    description_data_holder = []
+    title_data_holder = []
     descriptions = retrieve_data()
-    tokenized = [d.lower().split() for d in descriptions]
+    for d in descriptions:
+        description_data_holder.append(d["description"])
+        title_data_holder.append(d["title"])
 
-    dimensions = 100
+    encoder_model = "https://tfhub.dev/tensorflow/bert_en_uncased_L-12_H-768_A-12/4"
+    preprocess = "https://tfhub.dev/tensorflow/bert_en_uncased_preprocess/3"
 
-    model = Word2Vec(tokenized, size=dimensions, window=5, min_count=1, workers=4)
+    preprocess_bert = hb.KerasLayer(preprocess)
+    preprocessed_description = preprocess_bert(description_data_holder)
+    preprocessed_title = preprocess_bert(title_data_holder)
 
-    vectorized_data = [model.wv[word] for word in tokenized[0]]
+    model = hb.KerasLayer(encoder_model)
+    description_result = model(preprocessed_description)
+    title_result = model(preprocessed_title)
 
-    return vectorized_data
+    return {
+        "processed_titles": title_result["pooled_output"],
+        "processed_descriptions": description_result["pooled_output"],
+    }
 
 
+# https://www.tensorflow.org/text/tutorials/classify_text_with_bert
 def train_model() -> None:
     """Trains model"""
