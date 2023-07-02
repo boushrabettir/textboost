@@ -1,9 +1,9 @@
-# from textual.app import App, ComposeResult
-# from textual.widgets import Button, Header, Footer, Static, Input, Label
-# from textual.containers import ScrollableContainer, Container, Horizontal, Vertical
-# from textual.reactive import reactive
-# from utility import utils as ut
-# from textual.validation import Validator, Function
+from textual.app import App, ComposeResult
+from textual.widgets import Button, Header, Footer, Static, Input, Label
+from textual.containers import ScrollableContainer, Container, Horizontal, Vertical
+from textual.reactive import reactive
+from utility import utils as ut
+from textual.validation import Validator, Function
 
 # """
 # Input Validation:
@@ -31,53 +31,52 @@
 # # TODO - Grabbing input value from input widget
 
 
-# class Intro(Static):
-#     """An introduction text widget"""
+class Intro(Static):
+    """An introduction text widget"""
 
 
-# class InputField(Static):
-#     """An input field widget"""
+class InputField(Static):
+    """An input field widget"""
 
-#     user_input = reactive("")
+    user_input = reactive("")
 
-#     def on_input_changed(self, event: Input.Changed) -> str:
-#         self.user_input = event.input.value
+    def on_input_changed(self, event: Input.Changed) -> str:
+        self.user_input = event.input.value
 
-#     # TODO - CSS bug?
-#     def compose(self) -> ComposeResult:
-#         yield Input(placeholder="Place your command...", id="input")
-#         yield Button("Submit", id="submit", variant="primary")
-#         yield Label("First time? Write --help to get started!")
-
-
-# class TextBoost(App):
-#     """TextBoost App"""
-
-#     CSS_PATH = "main.css"
-
-#     def on_button_pressed(self, event: Button.Pressed) -> None:
-#         if event.button.id == "submit":
-#             self.user_input = self.query_one(InputField).user_input
-#             splitted = ut.splitted_value(self.user_input)
-#             with open("debug.txt", "w") as f:
-#                 f.write(self.user_input)
-
-#             ut.cli_command_utilizer(splitted)
-
-#     def compose(self) -> ComposeResult:
-#         yield Header()
-#         yield Footer()
-#         yield InputField()
+    # TODO - CSS bug?
+    def compose(self) -> ComposeResult:
+        yield Input(placeholder="Place your command...", id="input")
+        yield Button("Submit", id="submit", variant="primary")
+        yield Label("First time? Write --help to get started!")
 
 
-# if __name__ == "__main__":
-#     app = TextBoost()
-#     app.run()
+class TextBoost(App):
+    """TextBoost App"""
+
+    CSS_PATH = "main.css"
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "submit":
+            self.user_input = self.query_one(InputField).user_input
+            splitted = ut.splitted_value(self.user_input)
+            with open("debug.txt", "w") as f:
+                f.write(self.user_input)
+
+            ut.cli_command_utilizer(splitted)
+
+    def compose(self) -> ComposeResult:
+        yield Header()
+        yield Footer()
+        yield InputField()
+
+
+if __name__ == "__main__":
+    app = TextBoost()
+    app.run()
+
+# DEBUGGING
 # ut.customized_user_pdf_creation("./pre-modified/horror.pdf", "testingwow")
-
-from knn import change as cv
-
 # ut.customized_user_pdf_creation("./pre-modified/button.pdf", "testingbtn2")
 # ut.pdf_to_text_try_2("./pre-modified/aaa.pdf")
-cv.html_content("./modified/technology", "./pre-modified/button.pdf")
-cv.create_pdf_content("./modified/technology", "name")
+# cv.html_content("./modified/technology", "./pre-modified/tech.pdf")
+# cv.create_pdf_content("./modified/technology", "tech")
