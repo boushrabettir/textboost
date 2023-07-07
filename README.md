@@ -13,10 +13,12 @@ Powered by advanced machine learning algorithms, TextBoost offers additional dat
 
 ## Usage
 
-- Install [Python](https://www.python.org/downloads/) and [Pandoc](https://pandoc.org/installing.html)
+- Install [Python](https://www.python.org/downloads/).
 - Git clone this repository by running the command `https://github.com/boushrabettir/textboost.git`
 - Move to the `textboost` directory by running `cd ./textboost`
 - Pip install all the requirements by running `pip install -r requirements.txt`
+- Convert your PDF to a Markdown using [this website](https://products.groupdocs.app/conversion/pdf-to-md#:~:text=How%20to%20convert%20PDF%20to%20MD%201%20Open,MD%20file%20to%20your%20email%20address.%20More%20items).
+- Place your modified Markdown file in the `pre-modified` folder.
 - Run the script by typing `python ./main.py`
 - Navigate to the help menu to get started
 
