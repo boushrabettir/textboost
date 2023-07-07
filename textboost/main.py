@@ -43,7 +43,6 @@ class InputField(Static):
     def on_input_changed(self, event: Input.Changed) -> str:
         self.user_input = event.input.value
 
-    # TODO - CSS bug?
     def compose(self) -> ComposeResult:
         yield Input(placeholder="Place your command...", id="input")
         yield Button("Submit", id="submit", variant="primary")
@@ -70,13 +69,18 @@ class TextBoost(App):
         yield InputField()
 
 
-if __name__ == "__main__":
-    app = TextBoost()
-    app.run()
+# if __name__ == "__main__":
+#     app = TextBoost()
+#     app.run()
 
-# DEBUGGING
-# ut.customized_user_pdf_creation("./pre-modified/horror.pdf", "testingwow")
-# ut.customized_user_pdf_creation("./pre-modified/button.pdf", "testingbtn2")
-# ut.pdf_to_text_try_2("./pre-modified/aaa.pdf")
-# cv.html_content("./modified/technology", "./pre-modified/tech.pdf")
-# cv.create_pdf_content("./modified/technology", "tech")
+
+testing = "--add-file ./pre-modified/test.md testing"
+testing_process = "--process-file"
+
+splitted_1 = ut.splitted_value(testing)
+splitted_2 = ut.splitted_value(testing_process)
+print(splitted_2, splitted_1)
+ut.cli_command_utilizer(splitted_1)
+ut.cli_command_utilizer(splitted_2)
+ut.add_file_utilizer(splitted_1[1:])
+ut.process_file_utilizer()

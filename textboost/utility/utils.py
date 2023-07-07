@@ -7,7 +7,7 @@ import os
 from utility.file import File, FileUtilizer
 from PyPDF2 import PdfReader
 from knn import knn
-from knn import change as cv
+from utility import conversion as cv
 import fitz
 
 file_utilizer = FileUtilizer([])  # Holds the List[File]
@@ -92,21 +92,19 @@ def delete_file(file_name: str) -> str:
 
 def process_file_utilizer() -> None:
     """Processes file(s) from FileUtilizer"""
-
+    print("Processing your file...")
     for i in file_utilizer.list:
         customized_user_pdf_creation(i.file_path, i.file_name)
-    print("Processing your file...")
+
     file_utilizer.list.clear()  # Clear the list once the pdf has been customized
 
 
 def pdf_to_text_extraction(file: str) -> str:
     """Extracts text from the given PDF file by the user"""
 
-    doc = fitz.open(file)
     text = ""
-
-    for page in doc:
-        text += page.get_text()
+    with open(file, "r", encoding="utf-8") as file:
+        text = file.read()
 
     return text
 
@@ -122,16 +120,5 @@ def customized_user_pdf_creation(file_path, name) -> None:
     if not os.path.exists(modified_folder):
         os.makedirs(modified_folder)
 
-    # cv.pdf_to_html(file_path, modified_folder)
-    # cv.html_to_md(modified_folder)
-    # # cv.md_to_pdf_t2(modified_folder, name)
-    # cv.md_to_pdf(modified_folder, name)
-
-    # cv.pdf_to_md_tesintg(file_path)
-
-    # text = cv.modify_extracted_text(file_path)
-    # print(text)
-
-    cv.html_content(modified_folder, file_path)
-    cv.create_pdf_content(modified_folder, name)
-    # cv.create_pdf(modified_folder, name, text)
+    cv.modify_content(file_path)
+    cv.md_to_pdf(name, modified_folder, file_path)
