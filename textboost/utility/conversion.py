@@ -3,7 +3,7 @@ import re
 
 
 def modify_markdown_file(file_path: str) -> None:
-    """"""
+    """Removes the first and last line of Markdown file"""
 
     with open(file_path, "r") as file:
         lines = file.readlines()
@@ -16,8 +16,13 @@ def modify_markdown_file(file_path: str) -> None:
         file.writelines(lines)
 
 
-def modify_content(file_path: str) -> None:
-    """"""
+def modify_content(
+    file_path: str,
+    name: str,
+    folder: str,
+) -> None:
+    """Modifies the content for bionic reading"""
+
     modify_markdown_file(file_path)
 
     lines_to_extract = []
@@ -27,6 +32,7 @@ def modify_content(file_path: str) -> None:
         lines = re.findall(r".+?(?=\n|$)", text, re.DOTALL)
         lines_to_extract.extend(lines)
 
+    # Skip pattern to not add **** around them
     skip_pattern = (
         r"^(1\.|2\.|[3-9]\d?|100\.[0-9]?[0-9]?|[1-4]\d\d\.|500\.|-|#|##|###|####)"
     )
@@ -35,9 +41,8 @@ def modify_content(file_path: str) -> None:
         line = lines_to_extract[i]
         bolded_line = []
         for word in line.split():
-            if re.match(skip_pattern, word):
-                bolded_line.append(word)
-            elif "**" in word:
+            # If word already has ** or exists within the skip pattern, simply append the word into the line
+            if re.match(skip_pattern, word) or bolded_line.append(word):
                 bolded_line.append(word)
             else:
                 bolded_line.append("**" + word[:2] + "**" + word[2:])
@@ -52,11 +57,11 @@ def modify_content(file_path: str) -> None:
 
     text = "".join(lines_to_extract)
 
-    with open(file_path, "w", encoding="utf-8") as file:
+    with open(f"{folder}/{name}.md", "w", encoding="utf-8") as file:
         file.write(text)
 
 
-def md_to_pdf(name: str, folder: str, file_path) -> None:
+def md_to_pdf(name: str, folder: str) -> None:
     """Converts markdown file to PDF file"""
 
     try:
@@ -65,10 +70,10 @@ def md_to_pdf(name: str, folder: str, file_path) -> None:
                 "mdpdf",
                 "-o",
                 f"{folder}/{name}.pdf",
-                f"{file_path}",
+                f"{folder}/{name}.md",
             ]
         )
     except subprocess.CalledProcessError:
         print("Issue calling subprocess 'mdpdf' command.")
     except FileNotFoundError:
-        print(f"File path '{file_path}' not found.")
+        print(f"File path '{folder}/{name}.md' not found.")

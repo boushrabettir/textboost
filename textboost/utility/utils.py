@@ -120,5 +120,5 @@ def customized_user_pdf_creation(file_path, name) -> None:
     if not os.path.exists(modified_folder):
         os.makedirs(modified_folder)
 
-    cv.modify_content(file_path)
-    cv.md_to_pdf(name, modified_folder, file_path)
+    cv.modify_content(file_path, name, modified_folder)
+    cv.md_to_pdf(name, modified_folder)
