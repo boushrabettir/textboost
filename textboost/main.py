@@ -44,9 +44,13 @@ class InputField(Static):
         self.user_input = event.input.value
 
     def compose(self) -> ComposeResult:
-        yield Input(placeholder="Place your command...", id="input")
-        yield Button("Submit", id="submit", variant="primary")
-        yield Label("First time? Write --help to get started!")
+        yield Container(
+            Vertical(
+                Input(placeholder="Place your command..."),
+                Button("Submit", id="submit", variant="primary"),
+                id="dialog",
+            ),
+        )
 
 
 class TextBoost(App):
@@ -66,23 +70,24 @@ class TextBoost(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield Footer()
+
         yield InputField()
 
 
-# if __name__ == "__main__":
-#     app = TextBoost()
-#     app.run()
+if __name__ == "__main__":
+    app = TextBoost()
+    app.run()
 
 
-testing = "--add-file ./pre-modified/chicken.md essay"
-testing_process = "--process-file"
+# testing = "--add-file ./pre-modified/chicken.md essay"
+# testing_process = "--process-file"
 
-splitted_1 = ut.splitted_value(testing)
-splitted_2 = ut.splitted_value(testing_process)
-print(splitted_2, splitted_1)
+# splitted_1 = ut.splitted_value(testing)
+# splitted_2 = ut.splitted_value(testing_process)
+# print(splitted_2, splitted_1)
 
-ut.add_file_utilizer(splitted_1[1:])
-ut.process_file_utilizer()
+# ut.add_file_utilizer(splitted_1[1:])
+# ut.process_file_utilizer()
 # ut.cli_command_utilizer(splitted_1)
 # print("Called 1")
 # ut.cli_command_utilizer(splitted_2)
