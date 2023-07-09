@@ -7,7 +7,7 @@ import os
 from utility.file import File, FileUtilizer
 from PyPDF2 import PdfReader
 from knn import knn
-from utility import conversion as cv
+import utility.conversion as cv
 import fitz
 
 file_utilizer = FileUtilizer([])  # Holds the List[File]
@@ -20,6 +20,7 @@ def cli_command_utilizer(input: any) -> str:
 
     if validator:
         if input[0] == "--add-file":
+            print("Calling add file utilizer")
             add_file_utilizer(input[1:])
         if input[0] == "--process-file":
             process_file_utilizer()
@@ -103,7 +104,7 @@ def pdf_to_text_extraction(file: str) -> str:
     """Extracts text from the given PDF file by the user"""
 
     text = ""
-    with open(file, "r", encoding="utf-8") as file:
+    with open(file, "r", encoding="latin-1") as file:
         text = file.read()
 
     return text

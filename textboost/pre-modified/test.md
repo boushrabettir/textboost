@@ -1,40 +1,143 @@
-**WOMEN **IN** **ST**EM **PR**ESENTS **TO** YOU:** 
+﻿Bettir 1
 
-**VENDING MAGICK** 
+**Why Technology Needs More Female Entrepreneurs**
 
-**Ve**nding **Ma**gick **Ma**chines **of**fers **a** **va**riety **of** **nu**tritious **an**d **he**althy **ca**nned **fo**od **op**tions 
+In 2020 alone, only 25% of women held tech-related job positions in the industry. This
 
-**at** **an**y **ti**me **fo**r **th**e **fu**ll **24** **ho**urs, **ma**king **it** **ac**cessible **fo**r **lo**w-income **fa**milies **an**d **in**dividuals. 
+statistic did not come to me as a surprise then, nor does it now. Overtime, one may think that this
 
-**Ou**r **ve**nding **ma**chines **us**e **st**ate-of-the-art **te**chnology **th**at **en**sures **th**e **fr**eshness **an**d **qu**ality **of** 
+statistic might have grown overtime, however, history says otherwise. Throughout history, the
 
-**th**e **fo**od. **Mo**reover, **we** **ho**pe **to** **pa**rtner **wi**th **lo**cal **sc**hools **an**d **su**ppliers **to** **su**pport **th**e 
+concept of gender inequality and the resulting discrepancies have been apparent. This inturn,
 
-**co**mmunity **an**d **of**fer **th**e **be**st **nu**trition. **In** **ad**dition, **Ve**nding **Ma**gick **Ma**chines **ar**e **pl**aced 
+resulted in many problems. Even beyond this, during the time when women were forced to be
 
-**st**rategically **in** **ar**eas **wh**ere **th**ere **is** **a** **hi**gh **de**mand **fo**r **fo**od, **su**ch **as** **Or**ange **Co**unty. **On**ce **we** 
+housewives while men enjoyed social work freedom, it highlighted an idea of gender inequality.
 
-**st**art **in** **Or**ange **Co**unty, **we** **wi**ll **be** **ab**le **to** **fl**ourish **an**d **ex**pand **ou**r **pr**oduct **th**roughout **ot**her 
+This societal construct, often referred to as “separate spheres” has been a lingering ideology
 
-**co**unties. **We** **be**lieve **th**at **ac**cess **to** **he**althy **fo**od **sh**ould **no**t **be** **li**mited **to** **ce**rtain **ar**eas, **an**d **ou**r 
+influencing U.S. history, and ultimately to the issues we as a society face. Stemming from deeply
 
-**go**al **is** **to** **br**ing **fo**od **to** **th**ose **wh**o **ne**ed **it** **th**e **mo**st. **Ou**r **mi**ssion **is** **to** **cr**eate **a** **su**stainable **an**d 
+ingrained gender norms and expectations as seen throughout history, this construct has created an
 
-**in**clusive **co**mmunity **wh**ere **ev**eryone **ha**s **ac**cess **to** **he**althy **fo**od **op**tions. **Ad**ditionally, **we** **ho**pe 
+imbalance in gender equality for women, shaping their roles in society today.
 
-**th**at **th**ese **ac**cessible **ve**nding **ma**chines **al**low **ma**ny **fa**milies **an**d **in**dividuals **to** **pi**ck **up** **fo**od **at** **a** 
+With several challenges that the tech industry continues to face, it is no surprise that there
 
-**co**nvenient **ti**me. **Th**is **tr**uly **se**ts **us** **ap**art **fr**om **ot**hers. **Wi**th **Ve**nding **Ma**gick, **we** **ho**pe **to** **ma**ke **a** 
+is a growing recognition for a more diverse workforce. Aspiring female entrepreneurs like
 
-**di**fference **in** **th**e **li**ves **of** **lo**w-income **fa**milies **an**d **in**dividuals, **on**e **ve**nding **ma**chine **at** **a** **ti**me. 
+myself have great potential to hold a critical role in not only the tech industry, but to address
 
-**WOMEN **IN** STEM:** 
+issues that regard gender inequality. Not only that, but by bringing diverse voices to the table, not
 
-**1. **Bo**ushra Bettir** 
+only can they create solutions, but also allow other female entrepreneurs to become more
 
-**2. **Sa**ma Ahmed** 
+confident in their role. This inturn will bridge the gender gap in the tech industry. Female
 
-**3. **Ky**lie Ebrahim** 
+representation offers more than simply diversity. Female entrepreneurs offer problem-solving
 
-**4. **Sk**ye Kressin** 
+approaches, which is a heavy need in the tech world. Their diverse, new, and fresh perspectives
 
+can lead to the development of inclusive technologies, and a better experience for users in terms
+
+of their products and services. For instance, the founder of Girls Who Code, Reshma Saujani,
+
+created an organization committed to immerse diversity in tech by creating free summer courses
+
+for high school students. She advocates to stop the gender discrimination that comes into play in
+
+Bettir 1
+
+every shape or form in the industry (digitaltrends, Rawes). With this, increasing female
+
+entrepreneurship can create great potential in the industry.
+
+Despite this immense progress, the tech industry still has a significant gender disparity
+
+problem. According to Forbes magazine, in the U.S., 57% of females in 2021 felt burnout at
+
+work to secure their job. On the other side of the spectrum, only 36% of men felt this way.
+
+Reports showed that females naturally work harder and more diligently to prove their hard work,
+
+and to gain promotions. In meetings, men outnumber women, at least by a 2:1 ratio (Forbes,
+
+Green). CIO, a trusted source for business technology news, offered some insightful facts about
+
+this devastating issue. In the U.S., only 28% of women held jobs related to tech where women
+
+identifying as Asian or Pacific Islander made up only 7% of the IT workforce. The other races
+
+such as Black, Hispanic, and so forth, made up only 3% of the workforce (CIO, White).
+
+Additionally, females have trouble holding leadership positions, or even attaining them at all, due
+
+to the barriers that exist such as systemic biases, discrimination, imposter syndrome, and so
+
+much more. Not only that, but limited representation within the work environment they are in
+
+can cause difficulty in decision-making positions. Addressing these issues requires a group
+
+effort, and successfully can combat gender discrimination.
+
+Coming from an immigrant family with only female sisters, I found it both challenging
+
+and empowering to strive for educational achievements beyond what was traditionally expected.
+
+In a society where gender norms and expectations often shape opportunities, being part of a
+
+family where my sisters and I were encouraged to pursue education became a driving force in my
+
+journey. My dad was fascinated with the world that tech had to offer, however, since he
+
+sacrificed his education to bring me a better and fulfilling education, he never could achieve
+
+those dreams and aspirations. It was a delight when he found out I loved technology. Fast
+
+Bettir 1
+
+forward to today, where I am fully indulged and fascinated with the tech industry. Specifically,
+
+my current major is Computer Science, but I have been coding and opening the doors to new
+
+tools to use for many years before then. As a computer science female student myself, I have run
+
+into issues regarding this. With limited representation in my community, it is quite difficult to be
+
+taken seriously, and in fact, I have been looked down on for my intriguing thoughts simply
+
+because I am female. This can further be seen when I am in the midst of creating innovative
+
+projects. Men continuously undermine me, my work, and my work ethic, in an attempt to halt my
+
+project or to discourage me that the idea will never work out. However, this never works and
+
+although I get the job done, my efforts are dismissed or undervalued. Despite the challenges I go
+
+through and overcome, I am inspired from female entrepreneurs like Reshma Saujani, and draw
+
+inspiration from many others. In fact, I have taken courses at Girls Who Code, which has played
+
+a transformative role in my tech journey. This dismissive behavior from men that I so
+
+persistently receive fuels my determination to prove them wrong, and to one day create an
+
+impact in the tech industry.
+
+As the tech industry continues to rise, there needs to be a rise of female entrepreneurs. By
+
+addressing these issues we can bring unique perspectives and to evidently promote diversity.
+
+Female entrepreneurs can then drive innovation to create inclusive new technologies and to then
+
+create economic growth within society as a whole. However, to achieve such goals will not be
+
+easy. Female entrepreneurs have the power to drive great and meaningful change and to overall
+
+break down gender barriers. Their unique perspectives can create a more meaningful change to
+
+the tech industry as a whole. As a young woman aspiring to become a tech entrepreneur, I am
+
+fully determined and motivated to leverage my skills, experiences, and knowledge to inspire
+
+other women and to foolheartedly create a more diverse environment.

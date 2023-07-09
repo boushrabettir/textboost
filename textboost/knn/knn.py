@@ -15,10 +15,10 @@ nltk.download("punkt")
 class KNearestNeighbors:
     """A class defining the functionality for KNN"""
 
-    def __init__(self, k=1):
+    def __init__(self, k=10):
         self.k = k
         self.tdif = TfidfVectorizer()
-        self.KNN = KNeighborsClassifier(n_neighbors=3)
+        self.KNN = KNeighborsClassifier(n_neighbors=self.k)
 
     def fit_list(self, X, y) -> None:
         """Fits X and y training data"""
@@ -33,7 +33,7 @@ class KNearestNeighbors:
         self.X_train = X
         return self.tdif.fit_transform(self.X_train)
 
-    def predict_outcome(self, i) -> str:
+    def predict_outcome(self, i: int) -> str:
         """Returns the value of the models output"""
 
         labels = {
@@ -47,19 +47,22 @@ class KNearestNeighbors:
             7: "technology",
         }
 
-        return labels[i[0]]
+        return labels[i]
 
     # TODO - Fix Comparison - Eucledian Distance
-    def comparison(self, X_train, input):
+    def comparison(self, X_train, input) -> int:
         """Returns the index of the closest vector in X_train to the input vector"""
 
         transformed_input = self.tdif.transform([input])
         distances = np.linalg.norm(
-            X_train.toarray() - transformed_input.toarray() ** 2, axis=1
+            (X_train.toarray() - transformed_input.toarray()) ** 2, axis=1
         )
         closest_index = np.argmin(distances)
-        print(closest_index)
-        return closest_index
+        print(f"The closest index in Eucledian distance: {closest_index}")
+        print(f"Using self.y_train results for key in {self.y_train[closest_index]}")
+        key = self.y_train[closest_index]
+
+        return key
 
     def split_x_y(self) -> dict:
         """Splits data into X_train and y_train"""
@@ -78,7 +81,7 @@ class KNearestNeighbors:
 def model_test(user_input) -> str:
     """Tests the model using KNN and TD-IDF to sucessfully analyze the overall subject of the corpus"""
 
-    knn = KNearestNeighbors(k=1)
+    knn = KNearestNeighbors(k=10)
 
     training_data = knn.split_x_y()
     X_train = training_data["X_train"]
@@ -89,10 +92,11 @@ def model_test(user_input) -> str:
 
     knn.fit_list(X_train_transformed, y_train)
 
-    test = [user_input]
-    new_test = knn.tdif.transform(test)
-    predicted = knn.KNN.predict(new_test)
-
+    # test = [user_input]
+    predicted = knn.comparison(X_train_transformed, user_input)
+    # new_test = knn.tdif.transform(test)
+    # predicted = knn.KNN.predict(new_test)
+    print(predicted)
     return knn.predict_outcome(predicted)
 
 

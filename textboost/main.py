@@ -74,13 +74,15 @@ class TextBoost(App):
 #     app.run()
 
 
-testing = "--add-file ./pre-modified/test.md testing"
+testing = "--add-file ./pre-modified/chicken.md essay"
 testing_process = "--process-file"
 
 splitted_1 = ut.splitted_value(testing)
 splitted_2 = ut.splitted_value(testing_process)
 print(splitted_2, splitted_1)
-ut.cli_command_utilizer(splitted_1)
-ut.cli_command_utilizer(splitted_2)
+
 ut.add_file_utilizer(splitted_1[1:])
 ut.process_file_utilizer()
+# ut.cli_command_utilizer(splitted_1)
+# print("Called 1")
+# ut.cli_command_utilizer(splitted_2)
