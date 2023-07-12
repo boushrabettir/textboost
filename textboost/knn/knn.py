@@ -92,11 +92,8 @@ def model_test(user_input) -> str:
 
     knn.fit_list(X_train_transformed, y_train)
 
-    # test = [user_input]
     predicted = knn.comparison(X_train_transformed, user_input)
-    # new_test = knn.tdif.transform(test)
-    # predicted = knn.KNN.predict(new_test)
-    print(predicted)
+
     return knn.predict_outcome(predicted)
 
 

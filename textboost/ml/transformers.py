@@ -35,7 +35,10 @@ def fine_tune_model() -> str:
     # https://huggingface.co/docs/transformers/training
 
 
-# TODO https://huggingface.co/docs/transformers/model_doc/bert#transformers.models.bert.modeling_bert.BertForPreTrainingOutput.loss
+# TODO
+# https://huggingface.co/docs/transformers/model_doc/bert#transformers.models.bert.modeling_bert.BertForPreTrainingOutput.loss
+
+
 def generate_markdown() -> str:
     """Generate markdown with pre-trained model"""
 
