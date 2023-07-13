@@ -2,13 +2,13 @@
 
 ## About Textboost
 
-TextBoost is an innovative tool that leverages the power of AI and machine learning to enhance the reading experience, particularly for individuals with ADHD.
+TextBoost is a bionic reading tool that leverages the power of machine learning to enhance the reading experience and organization, particularly for individuals with an inability to focus.
 
 ## How TextBoost Harnesses Machine Learning
 
 Powered by advanced machine learning algorithms, TextBoost offers additional data science-driven features that further enrich the user experience:
 
-- **Folder Management within "Downloads"**: TextBoost provides the capability to organize files within the "Downloads" directory. The model can create subsections such as `modified/food`, `modified/space`, `modified/politics`, and more and store the respected pdf within their folder.
+- **Folder Management**: The model can create subsections such as `modified/food`, `modified/space`, `modified/politics`, and more and store the respected pdf within their folder.
 - **Text Summarization**: Textboost provides the capability to summarize the text within a given PDF. Optionally, the user can turn on this feature and the summarization will appear at the last page of the PDF.
 
 ## Usage
@@ -17,13 +17,14 @@ Powered by advanced machine learning algorithms, TextBoost offers additional dat
 - Git clone this repository by running the command `https://github.com/boushrabettir/textboost.git`
 - Move to the `textboost` directory by running `cd ./textboost`
 - Pip install all the requirements by running `pip install -r requirements.txt`
-- Convert your PDF to a Markdown using [this website](https://mathpix.com/pdf-to-markdown).
+- Convert your PDF to a Markdown using [this website](https://products.groupdocs.app/conversion/pdf-to-md).
 - Place your modified Markdown file in the `pre-modified` folder.
 - Run the script by typing `python ./main.py`
 - Navigate to the help menu to get started
 
 > **PLEASE NOTE THE FOLLOWING**<br/>
-> The updated PDF will be automatically placed in their respective folders dependent on the context of the text. The model will place your file in a folder similar to `textboost/modified/space/your_file.py`.<br/>
+> Due to how PDF's are extracted, this tool only supports simple text. Therefore, tables, c>ode blocks, and other complicated aspects will not be rendered in properly.<br/
+> The updated PDF will be automatically placed in their respective folders dependent on the context of the text. The model will place your file in a folder similar to `./modified/space/your_file.py`.<br/>
 > Make sure to take a look in the current directory you are in to find your outputted file.
 
 ## Key Features
@@ -49,13 +50,12 @@ Delete below this line when completed with this branch
 
 - [x] Get basic functionality working
 - [x] Possibility of getting a folder on their downloads, and look in that folder and there can be subsections like `Downloads/food` or `Downloads/makeup` or `Downloads/clothing` etc. And dependent on the context of the outputted pdf, the machine learning algorithm will place the pdf in their respected folder
-- [ ] Text summarization by a machine learning model 
+- [ ] Text summarization by a machine learning model
 - [x] Figure out side cases
 - [ ] Fix the model (inconsistent in placing pdfs in their respective folders)
 - [x] Create CSS
 - [x] Add all the other CLI commands that I have to do in `utils.py`
 
-## To Do in Next Branch:
+## To Do in Next Update:
 
-- [ ] Use machine learning techniques to translate to other languages (This is an optinal feature dependent if the user wants it)
-- [ ] Grammar/Quality Assessment (This is an optional feature users can disable)
+- [ ] Model produces markdown

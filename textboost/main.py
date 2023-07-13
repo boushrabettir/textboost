@@ -74,12 +74,12 @@ class TextBoost(App):
         yield InputField()
 
 
-if __name__ == "__main__":
-    app = TextBoost()
-    app.run()
+# if __name__ == "__main__":
+#     app = TextBoost()
+#     app.run()
 
 
-# testing = "--add-file ./pre-modified/chicken.md essay"
+# testing = "--add-file ./pre-modified/bigy.md bigggggggy"
 # testing_process = "--process-file"
 
 # splitted_1 = ut.splitted_value(testing)
