@@ -51,11 +51,12 @@ Delete below this line when completed with this branch
 
 - [x] Get basic functionality working
 - [x] Possibility of getting a folder on their downloads, and look in that folder and there can be subsections like `Downloads/food` or `Downloads/makeup` or `Downloads/clothing` etc. And dependent on the context of the outputted pdf, the machine learning algorithm will place the pdf in their respected folder
-- [ ] Text summarization by a machine learning model
+- [x] Text summarization by a (pretrained) machine learning model
 - [x] Figure out side cases
 - [ ] Fix the model (inconsistent in placing pdfs in their respective folders)
 - [x] Create CSS
 - [x] Add all the other CLI commands that I have to do in `utils.py`
+- [ ] Update functionality (button style)
 
 ## To Do in Next Update:
 
