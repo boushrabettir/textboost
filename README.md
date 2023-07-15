@@ -37,6 +37,7 @@ Powered by advanced machine learning algorithms, TextBoost offers additional dat
 ## Demo
 
 - Video goes here
+![image](https://github.com/boushrabettir/textboost/assets/116927138/83bf54e2-2a79-48b1-bf79-e73c085537e1)
 
 ---
 
