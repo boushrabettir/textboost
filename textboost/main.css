@@ -5,7 +5,6 @@
   margin: 4 9;
   display: block;
   background: $panel;
-
   align-vertical: middle;
   color: $text;
   border: tall $background;
@@ -34,4 +33,9 @@ Button {
 
 #text {
   align-horizontal: center;
+}
+
+Static {
+  text-style: bold;
+  text-align: center;
 }

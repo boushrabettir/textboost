@@ -1,14 +1,7 @@
-"""
-https://github.com/nateshmbhat/pyttsx3
-"""
-
 from typing import List
 import os
 from utility.file import File, FileUtilizer
-from PyPDF2 import PdfReader
-from knn import knn
 import utility.conversion as cv
-import fitz
 
 file_utilizer = FileUtilizer([])  # Holds the List[File]
 
@@ -20,7 +13,6 @@ def cli_command_utilizer(input: any) -> str:
 
     if validator:
         if input[0] == "--add-file":
-            print("Calling add file utilizer")
             add_file_utilizer(input[1:])
         if input[0] == "--process-file":
             process_file_utilizer()

@@ -47,9 +47,17 @@ class InputField(Static):
         yield Container(
             Vertical(
                 Input(placeholder="Place your command..."),
-                Button("Submit", id="submit", variant="primary"),
-                id="dialog",
+                Horizontal(
+                    Button("Add Files📃", id="add", variant="default"),
+                    Button("Process Files📨", id="process", variant="primary"),
+                    Button("View Files📤", id="view", variant="warning"),
+                    Button("Delete File📭", id="delete", variant="error"),
+                ),
+                Static(
+                    "Made with 💖 by @boushrabettir[https://github.com/boushrabettir]."
+                ),
             ),
+            id="dialog",
         )
 
 
@@ -57,6 +65,7 @@ class TextBoost(App):
     """TextBoost App"""
 
     CSS_PATH = "main.css"
+    BINDINGS = [("e", "exit_application", "Exit Application")]
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "submit":
@@ -67,16 +76,20 @@ class TextBoost(App):
 
             ut.cli_command_utilizer(splitted)
 
+    def action_exit_application(self) -> None:
+        """An action to toggle dark mode."""
+        self.exit()
+
     def compose(self) -> ComposeResult:
         yield Header()
-        yield Footer()
-
         yield InputField()
 
+        yield Footer()
 
-# if __name__ == "__main__":
-#     app = TextBoost()
-#     app.run()
+
+if __name__ == "__main__":
+    app = TextBoost()
+    app.run()
 
 
 # testing = "--add-file ./pre-modified/bigy.md bigggggggy"
