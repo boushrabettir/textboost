@@ -2,27 +2,28 @@ from typing import List
 import os
 from utility.file import File, FileUtilizer
 import utility.conversion as cv
+from ml import knn
 
 file_utilizer = FileUtilizer([])  # Holds the List[File]
 
 
-def cli_command_utilizer(input: any) -> str:
-    """A function containing CLI command inputs"""
+def cli_command_utilizer(user_input: str, action_type: str) -> str:
+    """A function containing CLI command user_inputs"""
 
-    validator = return_value(input)
+    validator = return_value(len(list(user_input)), action_type)
+
+    action_to_function = {
+        "add": add_file_utilizer(user_input),
+        "process": process_file_utilizer(),
+        "view": access_unprocessed_list(),
+        "delete": delete_file(user_input),
+        "find": find_file(user_input),
+    }
 
     if validator:
-        if input[0] == "--add-file":
-            add_file_utilizer(input[1:])
-        if input[0] == "--process-file":
-            process_file_utilizer()
-        if input[0] == "--view-unprocessed-files":
-            access_unprocessed_list()
-        if input[0] == "--delete-file":
-            # TODO
-            delete_file(input[1])
+        action_to_function[action_type]
     else:
-        return "Your command is not valid. Please type --help and try again. "
+        return "Your command is not valid. Please type --help and try again."
 
 
 def splitted_value(values: str) -> List[str]:
@@ -31,19 +32,20 @@ def splitted_value(values: str) -> List[str]:
     return values.split()
 
 
-def return_value(value: str) -> str:
+def return_value(user_input: str, action_type: str) -> bool:
     """Validates the users input"""
 
-    validation_list = [
-        "--add-file",
-        "--find-file",
-        "--delete-file",
-        "--process-file",
-        "--view-unprocessed-file",
-    ]
+    validation_object = {
+        "add": [2],
+        "process": [1],
+        "view": [0],
+        "delete": [0, 1],
+        "find": [1],
+    }
 
-    if not any(value[0] == command for command in validation_list):
-        return "This is not a valid command. Please type --help and try again."
+    value = validation_object[action_type]
+
+    return False if user_input not in value else True
 
 
 def add_file_utilizer(file_list: List[str]) -> str:
@@ -53,7 +55,7 @@ def add_file_utilizer(file_list: List[str]) -> str:
     file = File(PATH_TO_FILE, FILE_NAME)
     file_utilizer.list.append(file)
 
-    return "Successfully added your file! Add another or process your file!"
+    return f"Successfully added '{PATH_TO_FILE}' !"
 
 
 def access_unprocessed_list() -> str:
@@ -63,33 +65,45 @@ def access_unprocessed_list() -> str:
     for i in file_utilizer.list:
         final_str += f"""
             File Path: {i.file_path}
-            File Name: {i.file_name}
+            File Name: {i.file_name}\n
         """
 
     return final_str
 
 
-def delete_file(file_name: str) -> str:
+def delete_file(file_name: str = "") -> str:
     """Deletes a specific file if given by user else removes the most recent File object"""
 
     if file_name:
-        for file in file_utilizer:
-            if file_name in file[0]:
-                file_utilizer.list.pop()
-                break
+        index = file_utilizer.list.index(file_name)
+        file_utilizer.list.pop(index)
     else:
         file_utilizer.list.pop()
 
-    return "Sucessfully deleted. Please add a file or process your current file(s)."
+    return "Sucessfully deleted file."
 
 
 def process_file_utilizer() -> None:
-    """Processes file(s) from FileUtilizer"""
+    """Processes file(s) from unprocessed list"""
+
     print("Processing your file...")
     for i in file_utilizer.list:
         customized_user_pdf_creation(i.file_path, i.file_name)
 
     file_utilizer.list.clear()  # Clear the list once the pdf has been customized
+
+
+def find_file(user_input: str) -> str:
+    """Finds specific file from unprocessed list"""
+
+    try:
+        index = file_utilizer.list.index(user_input)
+        return f"File found: {file_utilizer.list[index]}."
+    except ValueError:
+        return f"File '{user_input}' not found in list."
+
+
+# ----------- PDF Creation -----------
 
 
 def pdf_to_text_extraction(file: str) -> str:
@@ -102,7 +116,7 @@ def pdf_to_text_extraction(file: str) -> str:
     return text
 
 
-def customized_user_pdf_creation(file_path, name) -> None:
+def customized_user_pdf_creation(file_path, name) -> str:
     """Creates the customized PDF for the user"""
 
     text = pdf_to_text_extraction(file_path)
@@ -115,3 +129,5 @@ def customized_user_pdf_creation(file_path, name) -> None:
 
     cv.modify_content(file_path, name, modified_folder)
     cv.md_to_pdf(name, modified_folder)
+
+    return f"PDF sucessfully created. Please check '{folder_location}' for your modified PDF."

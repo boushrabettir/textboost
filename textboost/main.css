@@ -1,16 +1,15 @@
 /* The top level dialog (a Container)  */
-#dialog {
-  height: 5fr;
-  display: block;
-  margin: 4 9;
-  display: block;
+.container {
+  margin: 5 9;
+  padding: 2;
   background: $panel;
-  align-vertical: middle;
-  color: $text;
   border: tall $background;
-  padding: 2 4;
+  align-vertical: bottom;
 }
 
+Vertical {
+  align-vertical: bottom;
+}
 /* The button class */
 Button {
   width: 1fr;
