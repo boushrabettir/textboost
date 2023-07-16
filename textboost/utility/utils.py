@@ -7,23 +7,26 @@ from ml import knn
 file_utilizer = FileUtilizer([])  # Holds the List[File]
 
 
+from functools import partial
+
+
 def cli_command_utilizer(user_input: str, action_type: str) -> str:
     """A function containing CLI command user_inputs"""
 
-    validator = return_value(len(list(user_input)), action_type)
+    validator = return_value(len(user_input), action_type)
 
     action_to_function = {
-        "add": add_file_utilizer(user_input),
-        "process": process_file_utilizer(),
-        "view": access_unprocessed_list(),
-        "delete": delete_file(user_input),
-        "find": find_file(user_input),
+        "add": partial(add_file_utilizer, user_input),
+        "process": process_file_utilizer,
+        "view": access_unprocessed_list,
+        "delete": partial(delete_file, user_input),
+        "find": partial(find_file, user_input),
     }
 
     if validator:
-        action_to_function[action_type]
-    else:
-        return "Your command is not valid. Please type --help and try again."
+        return action_to_function[action_type]()
+
+    return "Your command is not valid. Please type --help and try again."
 
 
 def splitted_value(values: str) -> List[str]:
@@ -55,7 +58,7 @@ def add_file_utilizer(file_list: List[str]) -> str:
     file = File(PATH_TO_FILE, FILE_NAME)
     file_utilizer.list.append(file)
 
-    return f"Successfully added '{PATH_TO_FILE}' !"
+    return f"Successfully added '{PATH_TO_FILE}'!"
 
 
 def access_unprocessed_list() -> str:
@@ -86,7 +89,6 @@ def delete_file(file_name: str = "") -> str:
 def process_file_utilizer() -> None:
     """Processes file(s) from unprocessed list"""
 
-    print("Processing your file...")
     for i in file_utilizer.list:
         customized_user_pdf_creation(i.file_path, i.file_name)
 
@@ -116,7 +118,7 @@ def pdf_to_text_extraction(file: str) -> str:
     return text
 
 
-def customized_user_pdf_creation(file_path, name) -> str:
+def customized_user_pdf_creation(file_path, name) -> None:
     """Creates the customized PDF for the user"""
 
     text = pdf_to_text_extraction(file_path)
@@ -130,4 +132,5 @@ def customized_user_pdf_creation(file_path, name) -> str:
     cv.modify_content(file_path, name, modified_folder)
     cv.md_to_pdf(name, modified_folder)
 
-    return f"PDF sucessfully created. Please check '{folder_location}' for your modified PDF."
+    # TODO
+    # return f"PDF sucessfully created. Please check '{folder_location}' for your modified PDF."

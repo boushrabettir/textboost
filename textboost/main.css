@@ -1,7 +1,7 @@
 /* The top level dialog (a Container)  */
 .container {
   margin: 5 9;
-  padding: 2;
+  padding: 2 3;
   background: $panel;
   border: tall $background;
   align-vertical: bottom;
