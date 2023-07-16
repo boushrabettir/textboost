@@ -23,7 +23,7 @@ Powered by advanced machine learning algorithms, TextBoost offers additional dat
 - Navigate to the help menu to get started
 
 > **PLEASE NOTE THE FOLLOWING**<br/>
-> Due to how PDF's are extracted, this tool only supports simple text. Therefore, tables, c>ode blocks, and other complicated aspects will not be rendered in properly.<br/>
+> Due to how PDF's are extracted, this tool only supports simple text. Therefore, tables, code blocks, and other complicated aspects will not be rendered in properly.<br/>
 > The updated PDF will be automatically placed in their respective folders dependent on the context of the text. The model will place your file in a folder similar to `./modified/space/your_file.py`.<br/>
 > Make sure to take a look in the current directory you are in to find your outputted file.
 
