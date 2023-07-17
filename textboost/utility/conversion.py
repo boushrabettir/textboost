@@ -1,6 +1,7 @@
 import subprocess
 import re
 import os
+from ml.summarize import create_summarization
 
 
 def modify_markdown_file(file_path: str) -> None:
@@ -17,11 +18,7 @@ def modify_markdown_file(file_path: str) -> None:
         file.writelines(lines)
 
 
-def modify_content(
-    file_path: str,
-    name: str,
-    folder: str,
-) -> None:
+def modify_content(file_path: str, name: str, folder: str, summarize: str) -> None:
     """Modifies the content for bionic reading"""
 
     modify_markdown_file(file_path)
@@ -63,6 +60,11 @@ def modify_content(
         lines_to_extract[i] = " ".join(lines_to_extract[i])
 
     text = "".join(lines_to_extract)
+
+    # If the user wants summarization, create the summarized text
+    if summarize[0].lower() == "true":
+        summarization = create_summarization(file_path)
+        text += f"\n\n\n**Summarization**:\n\n{summarization}\n"
 
     with open(f"{folder}/{name}.md", "w", encoding="utf-8") as file:
         file.write(text)

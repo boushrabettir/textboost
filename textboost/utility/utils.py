@@ -3,11 +3,9 @@ import os
 from utility.file import File, FileUtilizer
 import utility.conversion as cv
 from ml import knn
+from functools import partial
 
 file_utilizer = FileUtilizer([])  # Holds the List[File]
-
-
-from functools import partial
 
 
 def cli_command_utilizer(user_input: str, action_type: str) -> str:
@@ -17,7 +15,7 @@ def cli_command_utilizer(user_input: str, action_type: str) -> str:
 
     action_to_function = {
         "add": partial(add_file_utilizer, user_input),
-        "process": process_file_utilizer,
+        "process": partial(process_file_utilizer, user_input),
         "view": access_unprocessed_list,
         "delete": partial(delete_file, user_input),
         "find": partial(find_file, user_input),
@@ -86,11 +84,11 @@ def delete_file(file_name: str = "") -> str:
     return "Sucessfully deleted file."
 
 
-def process_file_utilizer() -> None:
+def process_file_utilizer(user_input: str) -> None:
     """Processes file(s) from unprocessed list"""
 
     for i in file_utilizer.list:
-        customized_user_pdf_creation(i.file_path, i.file_name)
+        customized_user_pdf_creation(i.file_path, i.file_name, user_input)
 
     file_utilizer.list.clear()  # Clear the list once the pdf has been customized
 
@@ -118,7 +116,7 @@ def pdf_to_text_extraction(file: str) -> str:
     return text
 
 
-def customized_user_pdf_creation(file_path, name) -> None:
+def customized_user_pdf_creation(file_path: str, name: str, summarize: str) -> None:
     """Creates the customized PDF for the user"""
 
     text = pdf_to_text_extraction(file_path)
@@ -129,7 +127,7 @@ def customized_user_pdf_creation(file_path, name) -> None:
     if not os.path.exists(modified_folder):
         os.makedirs(modified_folder)
 
-    cv.modify_content(file_path, name, modified_folder)
+    cv.modify_content(file_path, name, modified_folder, summarize)
     cv.md_to_pdf(name, modified_folder)
 
     # TODO
