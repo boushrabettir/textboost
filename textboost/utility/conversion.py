@@ -10,7 +10,10 @@ def modify_markdown_file(file_path: str) -> None:
     with open(file_path, "r", encoding="utf-8") as file:
         lines = file.readlines()
 
+    # Pattern with exists throughout the PDF
     pattern = r'<a\s+name="br\d+"></a>'
+
+    # Remove those unnecessary lines from that pattern
     lines = [line for line in lines if not re.search(pattern, line)]
 
     # Write the updated content back to the file
@@ -23,6 +26,7 @@ def modify_content(file_path: str, name: str, folder: str, summarize: str) -> No
 
     modify_markdown_file(file_path)
 
+    # Holds lines from the markdown file
     lines_to_extract = []
 
     with open(file_path, "r", encoding="utf-8") as file:
@@ -30,13 +34,16 @@ def modify_content(file_path: str, name: str, folder: str, summarize: str) -> No
         lines = re.findall(r".+?(?=\n|$)", text, re.DOTALL)
         lines_to_extract.extend(lines)
 
-    # Skip pattern to not add **** around them
+    # Skip pattern to not add bolding around specific special characters
     skip_pattern = (
         r"^(1\.|2\.|[3-9]\d?|100\.[0-9]?[0-9]?|[1-4]\d\d\.|500\.|-|#|##|###|####)"
     )
 
     for i in range(len(lines_to_extract)):
+        # Current line from the list
         line = lines_to_extract[i]
+
+        # Holds the modified bolded line
         bolded_line = []
         for word in line.split():
             # If word already has ** or exists within the skip pattern, simply append the word into the line
@@ -50,19 +57,22 @@ def modify_content(file_path: str, name: str, folder: str, summarize: str) -> No
             else:
                 bolded_line.append("**" + word[:2] + "**" + word[2:])
 
+        # Modify the value to the bolded line
         lines_to_extract[i] = bolded_line
 
         if i < len(lines_to_extract) - 1:
             lines_to_extract[i].append("\n")
 
+    # Join each line together
     for i in range(len(lines_to_extract)):
-        print(lines_to_extract[i])
         lines_to_extract[i] = " ".join(lines_to_extract[i])
 
+    # Join each sentence to one big text
     text = "".join(lines_to_extract)
 
-    # If the user wants summarization, create the summarized text
+    # Add summarized text if the user wants text summarization
     if summarize[0].lower() == "true":
+        # Create summary through pretrained model
         summarization = create_summarization(file_path)
         text += f"\n\n\n**Summarization**:\n\n{summarization}\n"
 
@@ -73,6 +83,7 @@ def modify_content(file_path: str, name: str, folder: str, summarize: str) -> No
 def md_to_pdf(name: str, folder: str) -> None:
     """Converts markdown file to PDF file"""
 
+    # Try to convert MD to PDF
     try:
         subprocess.run(
             [
@@ -87,4 +98,5 @@ def md_to_pdf(name: str, folder: str) -> None:
     except FileNotFoundError:
         print(f"File path '{folder}/{name}.md' not found.")
 
-    os.remove(f"{folder}/{name}.md")  # Remove the MD file after conversion
+    # Remove the MD file after conversion
+    os.remove(f"{folder}/{name}.md")

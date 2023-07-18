@@ -8,9 +8,6 @@ import os
 from typing import Tuple, List
 import string
 
-nltk.download("stopwords")
-nltk.download("punkt")
-
 
 class KNearestNeighbors:
     """A class defining the functionality for KNN"""
@@ -49,7 +46,6 @@ class KNearestNeighbors:
 
         return labels[i]
 
-    # TODO - Fix Comparison - Eucledian Distance
     def comparison(self, X_train, input) -> int:
         """Returns the index of the closest vector in X_train to the input vector"""
 
@@ -78,15 +74,39 @@ class KNearestNeighbors:
         return {"X_train": X_train, "y_train": y_train}
 
 
+def check_nltk_resource(resource_name) -> bool:
+    """Determines if the sources have been downloaded or not"""
+
+    try:
+        nltk.data.find(resource_name)
+        return True
+    except LookupError:
+        return False
+
+
+def download_resources() -> None:
+    """Downloads the sources if necessary"""
+
+    stopwords_downloaded = check_nltk_resource("corpora/stopwords")
+    punkt_downloaded = check_nltk_resource("tokenizers/punkt")
+
+    if not stopwords_downloaded:
+        nltk.download("stopwords")
+    if not punkt_downloaded:
+        nltk.download("punkt")
+
+
 def model_test(user_input) -> str:
     """Tests the model using KNN and TD-IDF to sucessfully analyze the overall subject of the corpus"""
 
     knn = KNearestNeighbors(k=10)
 
+    # Split training data to X_train and y_train
     training_data = knn.split_x_y()
     X_train = training_data["X_train"]
     y_train = training_data["y_train"]
 
+    # Transform the input list by removing the stop words and transforming the list
     X_train_preprocess = stop_words_removal(X_train)
     X_train_transformed = knn.transform_list(X_train_preprocess)
 
@@ -110,6 +130,7 @@ def label_folders() -> dict:
     """Labels each folder with their number"""
 
     labeling_dict = dict()
+
     folder_dir = return_list_folders()
 
     for i, folder in enumerate(folder_dir):
@@ -118,15 +139,17 @@ def label_folders() -> dict:
     return labeling_dict
 
 
-def stop_words_removal(X_train) -> List[str]:
+def stop_words_removal(X_train: List[str]) -> List[str]:
     """Removes stop words from the corpus and cleans up punctuation"""
 
     cached_stop_words = stopwords.words("english")
 
+    # Holds cleaned up text
     cleaned_texts = []
 
     for text in X_train:
         tokens = word_tokenize(text)
+        # Add word into lis if its not a stop word or a punctuation
         cleaned_tokens = [
             word
             for word in tokens
@@ -143,6 +166,8 @@ def merge_training_data() -> List[List[Tuple[str, int]]]:
     """Merges the data within a list of tuples, where each tuple consists of two values: the first value containing the text content, and the second value containing the label"""
 
     labeling = label_folders()
+
+    # Folder path for training data
     folder_path = "archive"
     folder_dir = return_list_folders()
     all_rows = []

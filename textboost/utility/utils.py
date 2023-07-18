@@ -11,8 +11,10 @@ file_utilizer = FileUtilizer([])  # Holds the List[File]
 def cli_command_utilizer(user_input: str, action_type: str) -> str:
     """A function containing CLI command user_inputs"""
 
+    # Validates user input
     validator = return_value(len(user_input), action_type)
 
+    # Determines which button was pressed
     action_to_function = {
         "add": partial(add_file_utilizer, user_input),
         "process": partial(process_file_utilizer, user_input),
@@ -21,6 +23,7 @@ def cli_command_utilizer(user_input: str, action_type: str) -> str:
         "find": partial(find_file, user_input),
     }
 
+    # If the user is valid, call the respective function
     if validator:
         return action_to_function[action_type]()
 
@@ -36,6 +39,7 @@ def splitted_value(values: str) -> List[str]:
 def return_value(user_input: str, action_type: str) -> bool:
     """Validates the users input"""
 
+    # For each key, the corresponding value represents the size of the user input
     validation_object = {
         "add": [2],
         "process": [1],
@@ -44,19 +48,28 @@ def return_value(user_input: str, action_type: str) -> bool:
         "find": [1],
     }
 
+    # Determines if the file to path is valid
+    valid_path = True
+    # TODO-
+    # user_splitted_input = user_input.split()
+    if action_type == "add":
+        valid_path = False
+
     value = validation_object[action_type]
 
-    return False if user_input not in value else True
+    return (False if user_input not in value else True) and valid_path
 
 
 def add_file_utilizer(file_list: List[str]) -> str:
     """Adds a file to the list of file(s)"""
 
-    PATH_TO_FILE, FILE_NAME = file_list
-    file = File(PATH_TO_FILE, FILE_NAME)
+    path_to_file, file_name = file_list
+
+    # Create file object
+    file = File(path_to_file, file_name)
     file_utilizer.list.append(file)
 
-    return f"Successfully added '{PATH_TO_FILE}'!"
+    return f"Successfully added '{path_to_file}'!"
 
 
 def access_unprocessed_list() -> str:
@@ -75,9 +88,11 @@ def access_unprocessed_list() -> str:
 def delete_file(file_name: str = "") -> str:
     """Deletes a specific file if given by user else removes the most recent File object"""
 
+    # Specific file names will be deleted from the file utilizer list
     if file_name:
         index = file_utilizer.list.index(file_name)
         file_utilizer.list.pop(index)
+    # Remove last file if no input is given
     else:
         file_utilizer.list.pop()
 
@@ -116,19 +131,29 @@ def pdf_to_text_extraction(file: str) -> str:
     return text
 
 
-def customized_user_pdf_creation(file_path: str, name: str, summarize: str) -> None:
+def customized_user_pdf_creation(file_path: str, name: str, summarize: str) -> str:
     """Creates the customized PDF for the user"""
 
+    # Extracts text from markdown
     text = pdf_to_text_extraction(file_path)
 
+    # Download necessary resources
+    knn.download_resources()
+
+    # Determines folder location dependent on the model
     folder_location = knn.model_test(text)
 
+    # Create modified folder in string literal
     modified_folder = f"./modified/{folder_location}"
+
+    # Create the folder if the folder doesn't already exist
     if not os.path.exists(modified_folder):
         os.makedirs(modified_folder)
 
+    # Modify the content with bionic reading effects
     cv.modify_content(file_path, name, modified_folder, summarize)
+
+    # Create PDF from the modified markdown
     cv.md_to_pdf(name, modified_folder)
 
-    # TODO
-    # return f"PDF sucessfully created. Please check '{folder_location}' for your modified PDF."
+    return f"PDF sucessfully created. Please check '{folder_location}' for your modified PDF."

@@ -9,12 +9,12 @@ import time
 
 # TODO - place in components
 # https://textual.textualize.io/widgets/progress_bar/
+# TODO
+MESSAGE = ""
 
 
 class Changing(Static):
     """A changing text widget"""
-
-    message = ""
 
 
 class InputField(Static):
@@ -36,6 +36,7 @@ class InputField(Static):
                     Button("Delete File📭", id="delete", variant="error"),
                     Button("Find File📬", id="find", variant="success"),
                 ),
+                Changing(MESSAGE),
                 Static(
                     "Made with 💖 by @boushrabettir[https://github.com/boushrabettir]."
                 ),
@@ -52,26 +53,23 @@ class TextBoost(App):
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         """Determines what function to call"""
-        message = ""
+
         self.user_input = self.query_one(InputField).user_input
 
         if event.button.id == "add":
             splitted = ut.splitted_value(self.user_input)
-            ut.cli_command_utilizer(splitted, event.button.id)
+            MESSAGE = ut.cli_command_utilizer(splitted, event.button.id)
         elif event.button.id == "process":
             splitted = ut.splitted_value(self.user_input)
-            ut.cli_command_utilizer(splitted, event.button.id)
+            MESSAGE = ut.cli_command_utilizer(splitted, event.button.id)
         elif event.button.id == "view":
-            ut.access_unprocessed_list()
+            MESSAGE = ut.access_unprocessed_list()
         elif event.button.id == "delete":
-            ut.cli_command_utilizer(self.user_input, event.button.id)
+            MESSAGE = ut.cli_command_utilizer(self.user_input, event.button.id)
         elif event.button.id == "find":
-            ut.cli_command_utilizer(self.user_input, event.button.id)
+            MESSAGE = ut.cli_command_utilizer(self.user_input, event.button.id)
 
         self.query_one(InputField).user_input = ""
-
-        # TODO
-        self.query_one(Changing).message = "potato"
 
     def action_exit_application(self) -> None:
         """An action to toggle dark mode."""
@@ -81,7 +79,6 @@ class TextBoost(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield InputField()
-        yield Changing()
         yield Footer()
 
 
