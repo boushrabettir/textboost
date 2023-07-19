@@ -7,19 +7,17 @@ from textual.validation import Validator, Function
 import time
 
 
-# TODO - place in components
 # https://textual.textualize.io/widgets/progress_bar/
-# TODO
-MESSAGE = ""
 
 
-class Changing(Static):
-    """A changing text widget"""
+class Message(Static):
+    """"""
 
 
 class InputField(Static):
     """An input field widget"""
 
+    message = reactive("")
     user_input = reactive("")
 
     def on_input_changed(self, event: Input.Changed) -> str:
@@ -36,13 +34,13 @@ class InputField(Static):
                     Button("Delete File📭", id="delete", variant="error"),
                     Button("Find File📬", id="find", variant="success"),
                 ),
-                Changing(MESSAGE),
-                Static(
-                    "Made with 💖 by @boushrabettir[https://github.com/boushrabettir]."
-                ),
             ),
             classes="container",
         )
+
+        # Static(
+        #     "Made with 💖 by @boushrabettir[https://github.com/boushrabettir]."
+        # ),
 
 
 class TextBoost(App):
@@ -52,22 +50,21 @@ class TextBoost(App):
     BINDINGS = [("e", "exit_application", "Exit Application")]
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
-        """Determines what function to call"""
-
         self.user_input = self.query_one(InputField).user_input
+        self.message = self.query_one(InputField).message
 
         if event.button.id == "add":
             splitted = ut.splitted_value(self.user_input)
-            MESSAGE = ut.cli_command_utilizer(splitted, event.button.id)
+            self.message = ut.cli_command_utilizer(splitted, event.button.id)
         elif event.button.id == "process":
             splitted = ut.splitted_value(self.user_input)
-            MESSAGE = ut.cli_command_utilizer(splitted, event.button.id)
+            self.message = ut.cli_command_utilizer(splitted, event.button.id)
         elif event.button.id == "view":
-            MESSAGE = ut.access_unprocessed_list()
+            self.message = ut.access_unprocessed_list()
         elif event.button.id == "delete":
-            MESSAGE = ut.cli_command_utilizer(self.user_input, event.button.id)
+            self.message = ut.cli_command_utilizer(self.user_input, event.button.id)
         elif event.button.id == "find":
-            MESSAGE = ut.cli_command_utilizer(self.user_input, event.button.id)
+            self.message = ut.cli_command_utilizer(self.user_input, event.button.id)
 
         self.query_one(InputField).user_input = ""
 
