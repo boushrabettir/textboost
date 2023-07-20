@@ -1,21 +1,25 @@
-.container {
-  margin: 5 9;
-  padding: 2 3;
-  background: $panel;
-  border: tall $background;
-  align-vertical: bottom;
+Screen {
+  align: center middle;
 }
 
-Vertical {
-  align-vertical: bottom;
+#background-panel {
+  width: 65%;
+  height: 60%;
+  border: tall $background;
+  background: $panel;
+  align: center middle;
+}
+
+#input-area {
+  width: 80%;
+  height: auto;
+}
+
+#buttons {
+  height: auto;
+  align-horizontal: center;
 }
 
 Button {
-  width: 1fr;
-  margin: 1 1;
-}
-
-Static {
-  text-style: bold;
-  text-align: center;
+  margin: 1;
 }

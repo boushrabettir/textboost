@@ -13,6 +13,8 @@ import time
 class Message(Static):
     """"""
 
+    user_input = reactive("")
+
 
 class InputField(Static):
     """An input field widget"""
@@ -24,19 +26,15 @@ class InputField(Static):
         self.user_input = event.input.value
 
     def compose(self) -> ComposeResult:
-        yield Container(
-            Vertical(
-                Input(placeholder="Place your command..."),
-                Horizontal(
-                    Button("Add Files📃", id="add", variant="default"),
-                    Button("Process Files📨", id="process", variant="primary"),
-                    Button("View Files📤", id="view", variant="warning"),
-                    Button("Delete File📭", id="delete", variant="error"),
-                    Button("Find File📬", id="find", variant="success"),
-                ),
-            ),
-            classes="container",
-        )
+        with Container(id="background-panel"):
+            with Vertical(id="input-area"):
+                yield Input(placeholder="Place your command...")
+                with Horizontal(id="buttons"):
+                    yield Button("Add Files📃", id="add", variant="default")
+                    yield Button("Process Files📨", id="process", variant="primary")
+                    yield Button("View Files📤", id="view", variant="warning")
+                    yield Button("Delete File📭", id="delete", variant="error")
+                    yield Button("Find File📬", id="find", variant="success")
 
         # Static(
         #     "Made with 💖 by @boushrabettir[https://github.com/boushrabettir]."
@@ -46,27 +44,27 @@ class InputField(Static):
 class TextBoost(App):
     """TextBoost App"""
 
-    CSS_PATH = "main.css"
     BINDINGS = [("e", "exit_application", "Exit Application")]
+    CSS_PATH = "main.css"
+
+    def on_input_changed(self, event: Input.Changed) -> str:
+        self.query_one(Message).user_input = event.input.value
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
-        self.user_input = self.query_one(InputField).user_input
-        self.message = self.query_one(InputField).message
+        message = self.query_one(Message).user_input
 
         if event.button.id == "add":
-            splitted = ut.splitted_value(self.user_input)
-            self.message = ut.cli_command_utilizer(splitted, event.button.id)
+            splitted = ut.splitted_value(message)
+            ut.cli_command_utilizer(splitted, event.button.id)
         elif event.button.id == "process":
-            splitted = ut.splitted_value(self.user_input)
-            self.message = ut.cli_command_utilizer(splitted, event.button.id)
+            splitted = ut.splitted_value(message)
+            ut.cli_command_utilizer(splitted, event.button.id)
         elif event.button.id == "view":
-            self.message = ut.access_unprocessed_list()
+            ut.access_unprocessed_list()
         elif event.button.id == "delete":
-            self.message = ut.cli_command_utilizer(self.user_input, event.button.id)
+            ut.cli_command_utilizer(message, event.button.id)
         elif event.button.id == "find":
-            self.message = ut.cli_command_utilizer(self.user_input, event.button.id)
-
-        self.query_one(InputField).user_input = ""
+            ut.cli_command_utilizer(message, event.button.id)
 
     def action_exit_application(self) -> None:
         """An action to toggle dark mode."""
@@ -75,7 +73,15 @@ class TextBoost(App):
 
     def compose(self) -> ComposeResult:
         yield Header()
-        yield InputField()
+        with Container(id="background-panel"):
+            with Vertical(id="input-area"):
+                yield Input(placeholder="Place your command...")
+                with Horizontal(id="buttons"):
+                    yield Button("Add Files📃", id="add", variant="default")
+                    yield Button("Process Files📨", id="process", variant="primary")
+                    yield Button("View Files📤", id="view", variant="warning")
+                    yield Button("Delete File📭", id="delete", variant="error")
+                    yield Button("Find File📬", id="find", variant="success")
         yield Footer()
 
 

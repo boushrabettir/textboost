@@ -91,9 +91,9 @@ def download_resources() -> None:
     punkt_downloaded = check_nltk_resource("tokenizers/punkt")
 
     if not stopwords_downloaded:
-        nltk.download("stopwords")
+        nltk.download("stopwords", quiet="True")
     if not punkt_downloaded:
-        nltk.download("punkt")
+        nltk.download("punkt", quiet="True")
 
 
 def model_test(user_input) -> str:

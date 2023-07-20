@@ -1,5 +1,10 @@
+import transformers
 from transformers import pipeline
 from typing import List
+import logging
+
+logging.getLogger("transformers").setLevel(logging.WARNING)
+transformers.logging.set_verbosity_error()
 
 # Create summarization pipeline instance
 SUMMARIZATION_PIPELINE = pipeline("summarization")
