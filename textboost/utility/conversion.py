@@ -71,7 +71,7 @@ def modify_content(file_path: str, name: str, folder: str, summarize: str) -> No
     text = "".join(lines_to_extract)
 
     # Add summarized text if the user wants text summarization
-    if summarize[0].lower() == "true":
+    if summarize.lower() == "true":
         # Create summary through pretrained model
         summarization = create_summarization(file_path)
         text += f"\n\n\n**Summarization**:\n\n{summarization}\n"
@@ -85,14 +85,17 @@ def md_to_pdf(name: str, folder: str) -> None:
 
     # Try to convert MD to PDF
     try:
-        subprocess.run(
-            [
-                "mdpdf",
-                "-o",
-                f"{folder}/{name}.pdf",
-                f"{folder}/{name}.md",
-            ]
-        )
+        with open(os.devnull, "w") as null_file:
+            subprocess.run(
+                [
+                    "mdpdf",
+                    "-o",
+                    f"{folder}/{name}.pdf",
+                    f"{folder}/{name}.md",
+                ],
+                stdout=null_file,
+                stderr=null_file,
+            )
     except subprocess.CalledProcessError:
         print("Issue calling subprocess 'mdpdf' command.")
     except FileNotFoundError:

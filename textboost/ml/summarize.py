@@ -28,10 +28,16 @@ def split_content(file_path: str) -> List[str]:
 
     content = pdf_to_text_extraction(file_path)
 
-    # "End of sentence" identifier to split sentences
+    # Modify content for summarization
     content = content.replace(".", ".<eos>")
     content = content.replace("?", "?<eos>")
     content = content.replace("!", "!<eos>")
+    content = content.replace("#", "")
+    content = content.replace("##", "")
+    content = content.replace("###", "")
+    content = content.replace("####", "")
+    content = content.replace("*", "")
+    content = content.replace("**", "")
 
     sentences = content.split("<eos>")
 

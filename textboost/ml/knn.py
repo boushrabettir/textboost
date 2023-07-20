@@ -40,8 +40,8 @@ class KNearestNeighbors:
             3: "graphics",
             4: "medical",
             5: "politics",
-            6: "sport",
-            7: "technology",
+            6: "space",
+            7: "sports",
         }
 
         return labels[i]
@@ -99,7 +99,7 @@ def download_resources() -> None:
 def model_test(user_input) -> str:
     """Tests the model using KNN and TD-IDF to sucessfully analyze the overall subject of the corpus"""
 
-    knn = KNearestNeighbors(k=10)
+    knn = KNearestNeighbors(k=12)
 
     # Split training data to X_train and y_train
     training_data = knn.split_x_y()

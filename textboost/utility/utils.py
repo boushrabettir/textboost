@@ -8,6 +8,7 @@ from functools import partial
 file_utilizer = FileUtilizer([])  # Holds the List[File]
 
 
+# TODO - Update
 def cli_command_utilizer(user_input: str, action_type: str) -> str:
     """A function containing CLI command user_inputs"""
 
@@ -157,3 +158,17 @@ def customized_user_pdf_creation(file_path: str, name: str, summarize: str) -> s
     cv.md_to_pdf(name, modified_folder)
 
     return f"PDF sucessfully created. Please check '{folder_location}' for your modified PDF."
+
+
+# ----------- OTHER -----------
+
+
+def create_file(text_list: List[str], genre_type: str) -> None:
+    """Creates training data file"""
+    for i, text in enumerate(text_list, start=1):
+        path = f"archive/{genre_type}/{genre_type}{i}.txt"
+        with open(path, "w", encoding="utf-8") as file:
+            text = text[
+                3:
+            ]  # Removing the index number from the text before writing to the file
+            file.write(text)
