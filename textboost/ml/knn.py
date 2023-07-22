@@ -10,7 +10,7 @@ import string
 
 
 class KNearestNeighbors:
-    """A class defining the functionality for KNN"""
+    """A class defining the base functionality for KNN"""
 
     def __init__(self, k=10):
         self.k = k
@@ -30,18 +30,17 @@ class KNearestNeighbors:
         self.X_train = X
         return self.tdif.fit_transform(self.X_train)
 
-    def predict_outcome(self, i: int) -> str:
+    def return_outcome(self, i: int) -> str:
         """Returns the value of the models output"""
 
         labels = {
             0: "business",
             1: "entertainment",
             2: "food",
-            3: "graphics",
-            4: "medical",
-            5: "politics",
-            6: "space",
-            7: "sports",
+            3: "medical",
+            4: "politics",
+            5: "space",
+            6: "sports",
         }
 
         return labels[i]
@@ -49,13 +48,16 @@ class KNearestNeighbors:
     def comparison(self, X_train, input) -> int:
         """Returns the index of the closest vector in X_train to the input vector"""
 
+        # Transforms input into numbers
         transformed_input = self.tdif.transform([input])
+
+        # Calculates Eucledian distance from training data to input data
         distances = np.linalg.norm(
             (X_train.toarray() - transformed_input.toarray()) ** 2, axis=1
         )
         closest_index = np.argmin(distances)
-        print(f"The closest index in Eucledian distance: {closest_index}")
-        print(f"Using self.y_train results for key in {self.y_train[closest_index]}")
+
+        # Grabs the key within the output data using the closest index
         key = self.y_train[closest_index]
 
         return key
@@ -112,9 +114,10 @@ def model_test(user_input) -> str:
 
     knn.fit_list(X_train_transformed, y_train)
 
+    # Returns the nearest closest index
     predicted = knn.comparison(X_train_transformed, user_input)
 
-    return knn.predict_outcome(predicted)
+    return knn.return_outcome(predicted)
 
 
 def return_list_folders() -> List[str]:
@@ -149,7 +152,7 @@ def stop_words_removal(X_train: List[str]) -> List[str]:
 
     for text in X_train:
         tokens = word_tokenize(text)
-        # Add word into lis if its not a stop word or a punctuation
+        # Add word into list if its not a stop word or a punctuation
         cleaned_tokens = [
             word
             for word in tokens
@@ -169,7 +172,11 @@ def merge_training_data() -> List[List[Tuple[str, int]]]:
 
     # Folder path for training data
     folder_path = "archive"
+
+    # Returns the list of folders
     folder_dir = return_list_folders()
+
+    # Holds tuple for file as well as the respected label
     all_rows = []
 
     for folder in folder_dir:

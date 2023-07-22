@@ -7,6 +7,7 @@ class File:
     """Struct to hold file related data"""
 
     file_path: str
+
     file_name: str
 
 

@@ -16,14 +16,14 @@ Powered by advanced machine learning algorithms, TextBoost offers additional dat
 - Install [Python](https://www.python.org/downloads/).
 - Git clone this repository by running the command `https://github.com/boushrabettir/textboost.git`
 - Move to the `textboost` directory by running `cd ./textboost`
-- Pip install all the requirements by running `pip install -r requirements.txt`
-- Convert your PDF to a Markdown using [this website](https://products.groupdocs.app/conversion/pdf-to-md).
+- Pip install requirements by running `pip install -r requirements.txt`
+- Convert your PDF to a Markdown using [this tool](https://products.groupdocs.app/conversion/pdf-to-md).
 - Place your modified Markdown file in the `pre-modified` folder.
 - Run the script by typing `python ./main.py`
 - Navigate to the help menu to get started
 
 > **PLEASE NOTE THE FOLLOWING**<br/>
-> Due to how PDF's are extracted, this tool only supports simple text. Therefore, tables, code blocks, and other complicated aspects will not be rendered in properly.<br/>
+> Due to how PDF's are extracted, this tool only supports simple text. Therefore, tables, c>ode blocks, and other complicated aspects will not be rendered in properly.<br/
 > The updated PDF will be automatically placed in their respective folders dependent on the context of the text. The model will place your file in a folder similar to `./modified/space/your_file.py`.<br/>
 > Make sure to take a look in the current directory you are in to find your outputted file.
 
@@ -37,7 +37,7 @@ Powered by advanced machine learning algorithms, TextBoost offers additional dat
 ## Demo
 
 - Video goes here
-![image](https://github.com/boushrabettir/textboost/assets/116927138/524fe7e0-e6a9-4ca2-a585-4fb6f503073e)
+  ![image](https://github.com/boushrabettir/textboost/assets/116927138/83bf54e2-2a79-48b1-bf79-e73c085537e1)
 
 ---
 
@@ -54,7 +54,7 @@ Delete below this line when completed with this branch
 - [x] Text summarization by a (pretrained) machine learning model
 - [ ] Figure out side cases
 - [ ] Fix the model (inconsistent in placing pdfs in their respective folders)
-- [x] Create CSS
+- [x] Create CSS [almost] [loading](https://textual.textualize.io/widget_gallery/#loadingindicator)
 - [x] Add all the other CLI commands that I have to do in `utils.py` [almost]
 - [x] Update functionality (button style)
 

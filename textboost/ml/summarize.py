@@ -3,6 +3,7 @@ from transformers import pipeline
 from typing import List
 import logging
 
+# Stopping logging information shown on terminal
 logging.getLogger("transformers").setLevel(logging.WARNING)
 transformers.logging.set_verbosity_error()
 
@@ -51,7 +52,7 @@ def split_content(file_path: str) -> List[str]:
 
 
 def create_chunks(file_path: str) -> List[str]:
-    """"""
+    """Creates text chunks for summarization per chunk"""
 
     # Holds the word count of the current chunk
     current_chunk = 0

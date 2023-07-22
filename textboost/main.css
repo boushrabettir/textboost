@@ -1,10 +1,19 @@
 Screen {
+  layout: horizontal;
   align: center middle;
 }
 
 #background-panel {
-  width: 65%;
-  height: 60%;
+  width: 55%;
+  height: 50%;
+  border: tall $background;
+  background: $panel;
+  align: center middle;
+}
+
+#background-text-panel {
+  width: 30%;
+  height: 50%;
   border: tall $background;
   background: $panel;
   align: center middle;
@@ -20,6 +29,19 @@ Screen {
   align-horizontal: center;
 }
 
+#buttons2 {
+  height: auto;
+  align-horizontal: center;
+}
+
 Button {
   margin: 1;
+}
+
+Static {
+  text-align: center;
+}
+
+#bolded {
+  text-style: bold;
 }

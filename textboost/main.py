@@ -3,12 +3,37 @@ from textual.widgets import Button, Header, Footer, Static, Input
 from textual.containers import Container, Horizontal, Vertical
 from textual.reactive import reactive
 from utility import utils as ut
-from textual.validation import Validator, Function
-import time
+from dataclasses import dataclass
+
+# TODO - Figure out message
+
+
+@dataclass
+class Message:
+    message: str
+
+
+message_holder = Message("")
+MESSAGE = message_holder.message
+# END-TODO
+
+
+class Instructions(Static):
+    """Instructions text widget"""
+
+    def compose(self) -> ComposeResult:
+        yield Static("INSTRUCTIONS", id="bolded")
+        yield Static("\n1. Add Files - [FILE_PATH] [NEW_FILE_NAME]\n")
+        yield Static("2. Process Files - [TRUE/FALSE] (Text summarization)\n")
+        yield Static("3. View Files - [FILE_PATH]\n")
+        yield Static(
+            "4. Delete Files -[FILE_PATH]\nAdd a file path, or place nothing \nto delete the most recent file.\n"
+        )
+        yield Static("5. Find Files - [FILE_PATH]")
 
 
 class InputField(Static):
-    """"""
+    """Input field widget"""
 
     user_input = reactive("")
 
@@ -26,28 +51,29 @@ class TextBoost(App):
     CSS_PATH = "main.css"
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
-        # Debugger
-        # with open("debug.txt", "w", encoding="utf-8") as f:
-        #     f.write(self.query_one(InputField).user_input + " " + event.button.id)
+        """Proceeds with functionality when a button is pressed"""
 
         user_input = self.query_one(InputField).user_input
+        splitted = ut.splitted_value(user_input)
+        action_type = event.button.id
 
-        # TODO - Update utils
         if event.button.id == "add":
-            splitted = ut.splitted_value(user_input)
-            ut.add_file_utilizer(splitted)
+            message_holder.message = ut.cli_command_utilizer(splitted, action_type)
         if event.button.id == "process":
-            ut.process_file_utilizer(user_input)
+            message_holder.message = ut.cli_command_utilizer(splitted, action_type)
         if event.button.id == "view":
-            ut.access_unprocessed_list()
+            message_holder.message = ut.access_unprocessed_list()
         if event.button.id == "delete":
-            ut.delete_file(user_input)
+            message_holder.message = ut.cli_command_utilizer(splitted, action_type)
         if event.button.id == "find":
-            ut.find_file(user_input)
+            message_holder.message = ut.cli_command_utilizer(splitted, action_type)
+
+        # Debugger
+        with open("debug.txt", "w", encoding="utf-8") as f:
+            f.write(message_holder.message)
 
     def action_exit_application(self) -> None:
         """An action to toggle dark mode."""
-        print(self.query_one(InputField).user_input)
         self.exit()
 
     def compose(self) -> ComposeResult:
@@ -61,10 +87,10 @@ class TextBoost(App):
                     yield Button("View Files📤", id="view", variant="warning")
                     yield Button("Delete File📭", id="delete", variant="error")
                     yield Button("Find File📬", id="find", variant="success")
-
-                yield Static(
-                    "Made with 💖 by @boushrabettir[https://github.com/boushrabettir]."
-                )
+                yield Static(MESSAGE)
+                yield Static("Made with 💖 by @boushrabettir.")
+        with Container(id="background-text-panel"):
+            yield Instructions()
 
         yield Footer()
 
