@@ -37,27 +37,8 @@ Powered by advanced machine learning algorithms, TextBoost offers additional dat
 ## Demo
 
 - Video goes here
-  ![image](https://github.com/boushrabettir/textboost/assets/116927138/83bf54e2-2a79-48b1-bf79-e73c085537e1)
-
+ 
 ---
 
 Made with 🐱💛 by Boushra Bettir
 
----
-
-Delete below this line when completed with this branch
-
-## To Do in Current Branch:
-
-- [x] Get basic functionality working
-- [x] Possibility of getting a folder on their downloads, and look in that folder and there can be subsections like `Downloads/food` or `Downloads/makeup` or `Downloads/clothing` etc. And dependent on the context of the outputted pdf, the machine learning algorithm will place the pdf in their respected folder
-- [x] Text summarization by a (pretrained) machine learning model
-- [ ] Figure out side cases
-- [ ] Fix the model (inconsistent in placing pdfs in their respective folders)
-- [x] Create CSS [almost] [loading](https://textual.textualize.io/widget_gallery/#loadingindicator)
-- [x] Add all the other CLI commands that I have to do in `utils.py` [almost]
-- [x] Update functionality (button style)
-
-## To Do in Next Update:
-
-- [ ] Model produces markdown
