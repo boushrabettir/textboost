@@ -77,28 +77,6 @@ class KNearestNeighbors:
         return {"X_train": X_train, "y_train": y_train}
 
 
-def check_nltk_resource(resource_name) -> bool:
-    """Determines if the sources have been downloaded or not"""
-
-    try:
-        nltk.data.find(resource_name)
-        return True
-    except LookupError:
-        return False
-
-
-def download_resources() -> None:
-    """Downloads the sources if necessary"""
-
-    stopwords_downloaded = check_nltk_resource("corpora/stopwords")
-    punkt_downloaded = check_nltk_resource("tokenizers/punkt")
-
-    if not stopwords_downloaded:
-        nltk.download("stopwords", quiet="True")
-    if not punkt_downloaded:
-        nltk.download("punkt", quiet="True")
-
-
 def model_test(user_input) -> str:
     """Tests the model using KNN and TD-IDF to sucessfully analyze the overall subject of the corpus"""
 
