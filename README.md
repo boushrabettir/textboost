@@ -1,5 +1,8 @@
 # Textboost
 
+# TODO 
+- [ ] Figure our requirements.txt
+
 ## About Textboost
 
 TextBoost is a bionic reading tool that leverages the power of machine learning to enhance the reading experience and organization, particularly for individuals with an inability to focus.
