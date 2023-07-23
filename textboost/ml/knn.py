@@ -15,7 +15,7 @@ class KNearestNeighbors:
 
     def __init__(self, k=10):
         self.k = k
-        self.tdif = TfidfVectorizer(stop_words=text.ENGLISH_STOP_WORDS)
+        self.tdif = TfidfVectorizer(stop_words="english")
         self.KNN = KNeighborsClassifier(n_neighbors=self.k)
 
     def fit_list(self, X, y) -> None:
@@ -102,7 +102,7 @@ def download_resources() -> None:
 def model_test(user_input) -> str:
     """Tests the model using KNN and TD-IDF to sucessfully analyze the overall subject of the corpus"""
 
-    knn = KNearestNeighbors(k=12)
+    knn = KNearestNeighbors(k=25)
 
     # Split training data to X_train and y_train
     training_data = knn.split_x_y()

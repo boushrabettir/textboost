@@ -9,7 +9,7 @@ file_utilizer = FileUtilizer([])  # Holds the List[File]
 
 
 # TODO - Update
-def cli_command_utilizer(user_input: List[str] = [], action_type: str = "") -> str:
+def cli_command_utilizer(user_input: List[str], action_type: str = "") -> str:
     """A function containing CLI command user_inputs"""
 
     # Validates user input
@@ -107,9 +107,10 @@ def process_file_utilizer(user_input: str) -> None:
         for i in file_utilizer.list:
             customized_user_pdf_creation(i.file_path, i.file_name, user_input[0])
 
-        file_utilizer.list.clear()  # Clear the list once the pdf has been customized
     except ValueError:
         return f"No files found to be processed. Please add a file and try again."
+
+    file_utilizer.list.clear()  # Clear the list once the pdf has been customized
 
 
 def find_file(user_input: str) -> str:

@@ -68,10 +68,6 @@ class TextBoost(App):
         if event.button.id == "find":
             message_holder.message = ut.cli_command_utilizer(splitted, action_type)
 
-        # Debugger
-        with open("debug.txt", "w", encoding="utf-8") as f:
-            f.write(message_holder.message)
-
     def action_exit_application(self) -> None:
         """An action to toggle dark mode."""
         self.exit()
