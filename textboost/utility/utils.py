@@ -174,5 +174,5 @@ def create_file(text_list: List[str], genre_type: str) -> None:
         path = f"archive/{genre_type}/{genre_type}{i}.txt"
         with open(path, "w", encoding="utf-8") as file:
             # Removing the index number from the text before writing to the file
-            text = text[3:]
+
             file.write(text)

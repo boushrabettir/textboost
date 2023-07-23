@@ -1,0 +1,1 @@
+Biometric authentication is providing secure access to devices and data through fingerprint, face, and iris recognition technologies.

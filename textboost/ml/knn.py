@@ -35,13 +35,14 @@ class KNearestNeighbors:
         """Returns the value of the models output"""
 
         labels = {
-            0: "business",
-            1: "entertainment",
-            2: "food",
+            0: "entertainment",
+            1: "food",
+            2: "history",
             3: "medical",
             4: "politics",
             5: "space",
             6: "sports",
+            7: "technology",
         }
 
         return labels[i]

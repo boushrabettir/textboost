@@ -1,6 +1,7 @@
 import subprocess
 import re
 import os
+import math
 from ml.summarize import create_summarization
 
 
@@ -46,16 +47,22 @@ def modify_content(file_path: str, name: str, folder: str, summarize: str) -> No
         # Holds the modified bolded line
         bolded_line = []
         for word in line.split():
+            # Calculate the amount of letters to bold per word
+            bolding_per_word = math.ceil(len(word) / 2)
+
             # If word already has ** or exists within the skip pattern, simply append the word into the line
             if (
-                re.match(skip_pattern, word)
+                re.match(skip_pattern, word[:bolding_per_word])
                 or "**" in word
-                or "." in word[:2]
-                or ":" in word[:2]
+                or "." in word[:bolding_per_word]
+                or ":" in word[:bolding_per_word]
+                or "-" in word[:bolding_per_word]
             ):
                 bolded_line.append(word)
             else:
-                bolded_line.append("**" + word[:2] + "**" + word[2:])
+                bolded_line.append(
+                    "**" + word[:bolding_per_word] + "**" + word[bolding_per_word:]
+                )
 
         # Modify the value to the bolded line
         lines_to_extract[i] = bolded_line

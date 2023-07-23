@@ -14,7 +14,7 @@ class Message:
 
 
 message_holder = Message("")
-MESSAGE = message_holder.message
+
 # END-TODO
 
 
@@ -58,9 +58,9 @@ class TextBoost(App):
         action_type = event.button.id
 
         if event.button.id == "add":
-            message_holder.message = ut.cli_command_utilizer(splitted, action_type)
+            ut.cli_command_utilizer(splitted, action_type)
         if event.button.id == "process":
-            message_holder.message = ut.cli_command_utilizer(splitted, action_type)
+            ut.cli_command_utilizer(splitted, action_type)
         if event.button.id == "view":
             message_holder.message = ut.access_unprocessed_list()
         if event.button.id == "delete":
@@ -83,7 +83,7 @@ class TextBoost(App):
                     yield Button("View Files📤", id="view", variant="warning")
                     yield Button("Delete File📭", id="delete", variant="error")
                     yield Button("Find File📬", id="find", variant="success")
-                yield Static(MESSAGE)
+                yield Static(message_holder.message)
                 yield Static("Made with 💖 by @boushrabettir.")
         with Container(id="background-text-panel"):
             yield Instructions()

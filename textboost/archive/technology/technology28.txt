@@ -1,0 +1,1 @@
+Computer vision is enabling machines to interpret visual information, powering applications like facial recognition and object detection.
