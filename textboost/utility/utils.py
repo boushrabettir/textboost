@@ -142,7 +142,7 @@ def customized_user_pdf_creation(file_path: str, name: str, summarize: str) -> s
     text = pdf_to_text_extraction(file_path)
 
     # Download necessary resources
-    knn.download_resources()
+    # knn.download_resources()
 
     # Determines folder location dependent on the model
     folder_location = knn.model_test(text)

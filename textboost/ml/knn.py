@@ -1,3 +1,4 @@
+from sklearn.feature_extraction import text
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import KNeighborsClassifier
 import numpy as np
@@ -14,7 +15,7 @@ class KNearestNeighbors:
 
     def __init__(self, k=10):
         self.k = k
-        self.tdif = TfidfVectorizer()
+        self.tdif = TfidfVectorizer(stop_words=text.ENGLISH_STOP_WORDS)
         self.KNN = KNeighborsClassifier(n_neighbors=self.k)
 
     def fit_list(self, X, y) -> None:
@@ -109,7 +110,7 @@ def model_test(user_input) -> str:
     y_train = training_data["y_train"]
 
     # Transform the input list by removing the stop words and transforming the list
-    X_train_preprocess = stop_words_removal(X_train)
+    X_train_preprocess = X_train
     X_train_transformed = knn.transform_list(X_train_preprocess)
 
     knn.fit_list(X_train_transformed, y_train)
