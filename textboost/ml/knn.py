@@ -80,7 +80,7 @@ class KNearestNeighbors:
 def model_test(user_input) -> str:
     """Tests the model using KNN and TD-IDF to sucessfully analyze the overall subject of the corpus"""
 
-    knn = KNearestNeighbors(k=25)
+    knn = KNearestNeighbors(k=12)
 
     # Split training data to X_train and y_train
     training_data = knn.split_x_y()
