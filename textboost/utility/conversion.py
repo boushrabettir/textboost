@@ -52,7 +52,7 @@ def modify_content(file_path: str, name: str, folder: str, summarize: str) -> No
 
             # If word already has ** or exists within the skip pattern, simply append the word into the line
             if (
-                re.match(skip_pattern, word[:bolding_per_word])
+                re.match(skip_pattern, word)
                 or "**" in word
                 or "." in word[:bolding_per_word]
                 or ":" in word[:bolding_per_word]

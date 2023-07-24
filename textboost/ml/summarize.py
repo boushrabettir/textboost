@@ -4,8 +4,7 @@ from typing import List
 import logging
 
 # Stopping logging information shown on terminal
-logging.getLogger("transformers").setLevel(logging.WARNING)
-transformers.logging.set_verbosity_error()
+logging.getLogger("transformers").setLevel(logging.ERROR)
 
 # Create summarization pipeline instance
 SUMMARIZATION_PIPELINE = pipeline("summarization")

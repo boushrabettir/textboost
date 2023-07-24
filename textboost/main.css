@@ -4,7 +4,7 @@ Screen {
 }
 
 #background-panel {
-  width: 55%;
+  width: 35%;
   height: 50%;
   border: tall $background;
   background: $panel;
@@ -19,6 +19,14 @@ Screen {
   align: center middle;
 }
 
+#background-text-panel_2 {
+  width: 30%;
+  height: 50%;
+  border: tall $background;
+  background: $panel;
+  align: center middle;
+}
+
 #input-area {
   width: 80%;
   height: auto;
@@ -26,6 +34,7 @@ Screen {
 
 #buttons {
   height: auto;
+  margin: 0;
   align-horizontal: center;
 }
 

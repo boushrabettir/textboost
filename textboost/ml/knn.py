@@ -2,7 +2,6 @@ from sklearn.feature_extraction import text
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import KNeighborsClassifier
 import numpy as np
-import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import os
