@@ -5,7 +5,7 @@ Screen {
 
 #background-panel {
   width: 35%;
-  height: 50%;
+  height: 60%;
   border: tall $background;
   background: $panel;
   align: center middle;
@@ -13,17 +13,29 @@ Screen {
 
 #background-text-panel {
   width: 30%;
-  height: 50%;
+  height: 60%;
   border: tall $background;
   background: $panel;
   align: center middle;
 }
 
-#background-text-panel_2 {
+#background-text-panel-2 {
   width: 30%;
-  height: 50%;
+  height: 60%;
   border: tall $background;
   background: $panel;
+  text-style: bold;
+  align: center middle;
+}
+
+LeftWidget {
+  align: center middle;
+}
+
+Message {
+  text-align: center;
+  padding-top: 1;
+  text-style: bold;
   align: center middle;
 }
 
