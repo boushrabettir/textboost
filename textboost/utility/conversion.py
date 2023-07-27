@@ -107,3 +107,6 @@ def md_to_pdf(name: str, folder: str) -> None:
         print("Issue calling subprocess 'mdpdf' command.")
     except FileNotFoundError:
         print(f"File path '{folder}/{name}.md' not found.")
+
+    # Remove the MD file after conversion
+    os.remove(f"{folder}/{name}.md")

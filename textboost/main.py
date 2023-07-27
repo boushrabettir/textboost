@@ -44,10 +44,10 @@ class TextBoost(App):
     def compose(self) -> ComposeResult:
         yield Header()
         with Container(id="background-text-panel-2"):
-            yield LeftWidget()
-            yield Message(id="message")
+            yield Message()
         with Container(id="background-panel"):
             with Vertical(id="input-area"):
+                yield LeftWidget()
                 yield InputField()
                 with Horizontal(id="buttons"):
                     yield Button("Add Files📃", id="add", variant="default")

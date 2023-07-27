@@ -35,5 +35,5 @@ class LeftWidget(Static):
 
     def compose(self) -> ComposeResult:
         yield Static(
-            f"🔅💫 WELCOME TO TEXTBOOST 💫🔅\n Date: {datetime.now().strftime('%m/%d/%Y')},",
+            f"🔅💫 WELCOME TO TEXTBOOST 💫🔅\n{datetime.now().strftime('%m/%d/%Y')}",
         )

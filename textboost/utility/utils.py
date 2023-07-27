@@ -69,10 +69,7 @@ def access_unprocessed_list() -> str:
 
     final_str = ""
     for i in file_utilizer.list:
-        final_str += f"""
-            File Path: {i.file_path}
-            File Name: {i.file_name}\n
-        """
+        final_str += f"File Path: {i.file_path}\nFile Name: {i.file_name}\n\n"
 
     if not final_str:
         return "😧: There are no files in the current list."

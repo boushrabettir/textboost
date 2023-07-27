@@ -24,19 +24,22 @@ Screen {
   height: 60%;
   border: tall $background;
   background: $panel;
-  text-style: bold;
-  align: center middle;
+  align-vertical: middle;
+  align-horizontal: center;
+}
+
+Message {
+  margin: 2;
+  align-vertical: middle;
+  align-horizontal: center;
+  text-align: center;
+  margin-top: 8;
 }
 
 LeftWidget {
   align: center middle;
-}
-
-Message {
-  text-align: center;
-  padding-top: 1;
+  padding-bottom: 1;
   text-style: bold;
-  align: center middle;
 }
 
 #input-area {
