@@ -43,4 +43,4 @@ https://github.com/boushrabettir/textboost/assets/116927138/f729e7f1-36aa-449d-b
 
 ---
 
-Made with 🐱💛 by Boushra Bettir
+Made with 🐱💛 by [@boushrabettir](https://github.com/boushrabettir)
