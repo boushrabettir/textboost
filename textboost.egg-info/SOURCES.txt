@@ -1,0 +1,11 @@
+LICENSE
+README.md
+setup.py
+textboost/__init__.py
+textboost/main.py
+textboost.egg-info/PKG-INFO
+textboost.egg-info/SOURCES.txt
+textboost.egg-info/dependency_links.txt
+textboost.egg-info/entry_points.txt
+textboost.egg-info/requires.txt
+textboost.egg-info/top_level.txt

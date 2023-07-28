@@ -1,0 +1,2 @@
+[console_scripts]
+textboost = textboost.textboost.main:main
