@@ -27,86 +27,70 @@ def modify_content(file_path: str, name: str, folder: str, summarize: str) -> No
 
     modify_markdown_file(file_path)
 
-    # Holds lines from the markdown file
-    lines_to_extract = []
-
+    # Read lines from markdown
     with open(file_path, "r", encoding="utf-8") as file:
-        text = file.read()
-        lines = re.findall(r".+?(?=\n|$)", text, re.DOTALL)
-        lines_to_extract.extend(lines)
+        lines = file.read().splitlines()
 
-    # Skip pattern to not add bolding around specific special characters
     skip_pattern = (
         r"^(1\.|2\.|[3-9]\d?|100\.[0-9]?[0-9]?|[1-4]\d\d\.|500\.|-|#|##|###|####)"
     )
 
-    for i in range(len(lines_to_extract)):
-        # Current line from the list
-        line = lines_to_extract[i]
+    modified_lines = []
 
-        # Holds the modified bolded line
-        bolded_line = []
+    for line in lines:
+        words = []
         for word in line.split():
-            # Calculate the amount of letters to bold per word
-            bolding_per_word = math.ceil(len(word) / 2)
-
-            # If word already has ** or exists within the skip pattern, simply append the word into the line
+            bolding = math.ceil(len(word) / 2)
             if (
                 re.match(skip_pattern, word)
                 or "**" in word
-                or "." in word[:bolding_per_word]
-                or ":" in word[:bolding_per_word]
-                or "-" in word[:bolding_per_word]
+                or any(c in word[:bolding] for c in ".:-")
             ):
-                bolded_line.append(word)
+                words.append(word)
             else:
-                bolded_line.append(
-                    "**" + word[:bolding_per_word] + "**" + word[bolding_per_word:]
-                )
+                words.append("**" + word[:bolding] + "**" + word[bolding:])
+        modified_lines.append(" ".join(words))
 
-        # Modify the value to the bolded line
-        lines_to_extract[i] = bolded_line
+    text = "\n".join(modified_lines)
 
-        if i < len(lines_to_extract) - 1:
-            lines_to_extract[i].append("\n")
-
-    # Join each line together
-    for i in range(len(lines_to_extract)):
-        lines_to_extract[i] = " ".join(lines_to_extract[i])
-
-    # Join each sentence to one big text
-    text = "".join(lines_to_extract)
-
-    # Add summarized text if the user wants text summarization
+    # Add summarization
     if summarize.lower() == "true":
-        # Create summary through pretrained model
         summarization = create_summarization(file_path)
         text += f"\n\n\n**Summarization**:\n\n{summarization}\n"
 
-    with open(f"{folder}/{name}.md", "w", encoding="utf-8") as file:
-        file.write(text)
+    # Debug log for PDF generation
+    with open("step3finalstep.txt", "a", encoding="utf-8") as f:
+        f.write(f"Writing modified markdown to: {folder}/{name}.md\n")
+        f.write(f"Modified text length: {len(text)}\n")
+
+    # Write markdown
+    os.makedirs(folder, exist_ok=True)
+    with open(f"{folder}/{name}.md", "w", encoding="utf-8") as f:
+        f.write(text)
 
 
 def md_to_pdf(name: str, folder: str) -> None:
     """Converts markdown file to PDF file"""
 
-    # Try to convert MD to PDF
-    try:
-        with open(os.devnull, "w") as null_file:
-            subprocess.run(
-                [
-                    "mdpdf",
-                    "-o",
-                    f"{folder}/{name}.pdf",
-                    f"{folder}/{name}.md",
-                ],
-                stdout=null_file,
-                stderr=null_file,
-            )
-    except subprocess.CalledProcessError:
-        print("Issue calling subprocess 'mdpdf' command.")
-    except FileNotFoundError:
-        print(f"File path '{folder}/{name}.md' not found.")
+    md_path = f"{folder}/{name}.md"
+    pdf_path = f"{folder}/{name}.pdf"
 
-    # Remove the MD file after conversion
-    os.remove(f"{folder}/{name}.md")
+    # Check if file exists
+    if not os.path.exists(md_path):
+        print(f"ERROR: Markdown file '{md_path}' does not exist!")
+        return
+
+    try:
+        # Run mdpdf and show errors
+        subprocess.run(
+            ["mdpdf", "-o", pdf_path, md_path],
+            check=True,  # raises CalledProcessError on failure
+        )
+    except subprocess.CalledProcessError as e:
+        print("mdpdf failed with error:", e)
+    except FileNotFoundError:
+        print("mdpdf executable not found! Make sure it is installed and in your PATH.")
+
+    # Only remove markdown if PDF exists
+    if os.path.exists(pdf_path):
+        os.remove(md_path)

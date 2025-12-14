@@ -1,7 +1,7 @@
-from sklearn.feature_extraction import text
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import KNeighborsClassifier
 import numpy as np
+import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import os
@@ -14,156 +14,130 @@ class KNearestNeighbors:
 
     def __init__(self, k=10):
         self.k = k
-        self.tdif = TfidfVectorizer(stop_words="english")
+        self.tfid = TfidfVectorizer(stop_words="english")
         self.KNN = KNeighborsClassifier(n_neighbors=self.k)
 
     def fit_list(self, X, y) -> None:
         """Fits X and y training data"""
-
         self.X_train = X
         self.y_train = y
         self.KNN.fit(self.X_train, self.y_train)
 
     def transform_list(self, X) -> TfidfVectorizer:
         """Transforms X training data"""
-
         self.X_train = X
-        return self.tdif.fit_transform(self.X_train)
+        return self.tfid.fit_transform(self.X_train)
 
     def return_outcome(self, i: int) -> str:
-        """Returns the value of the models output"""
+        """Returns the folder name corresponding to predicted index"""
+        folder_dir = return_list_folders()  # sorted
+        return folder_dir[i]
 
-        labels = {
-            0: "entertainment",
-            1: "food",
-            2: "history",
-            3: "medical",
-            4: "politics",
-            5: "space",
-            6: "sports",
-            7: "technology",
-        }
-
-        return labels[i]
-
-    def comparison(self, X_train, input) -> int:
+    def comparison(self, X_train_transformed, input_text) -> int:
         """Returns the index of the closest vector in X_train to the input vector"""
-
-        # Transforms input into numbers
-        transformed_input = self.tdif.transform([input])
-
-        # Calculates Eucledian distance from training data to input data
+        transformed_input = self.tfid.transform([input_text])
         distances = np.linalg.norm(
-            (X_train.toarray() - transformed_input.toarray()) ** 2, axis=1
+            (X_train_transformed.toarray() - transformed_input.toarray()) ** 2, axis=1
         )
         closest_index = np.argmin(distances)
-
-        # Grabs the key within the output data using the closest index
-        key = self.y_train[closest_index]
-
-        return key
+        return self.y_train[closest_index]
 
     def split_x_y(self) -> dict:
-        """Splits data into X_train and y_train"""
-
-        X_train = []
-        y_train = []
+        """Splits training data into X_train and y_train"""
         training_data = merge_training_data()
-
-        for i in training_data:
-            X_train.append(i[0])
-            y_train.append(i[1])
-
+        X_train = [row[0] for row in training_data]
+        y_train = [row[1] for row in training_data]
         return {"X_train": X_train, "y_train": y_train}
 
 
-def model_test(user_input) -> str:
-    """Tests the model using KNN and TD-IDF to sucessfully analyze the overall subject of the corpus"""
+def model_test(user_input: str) -> str:
+    """Predicts the folder based on user input text using KNN and TF-IDF."""
 
-    knn = KNearestNeighbors(k=12)
+    nltk.download("punkt", quiet=True)
+    nltk.download("stopwords", quiet=True)
 
-    # Split training data to X_train and y_train
-    training_data = knn.split_x_y()
-    X_train = training_data["X_train"]
-    y_train = training_data["y_train"]
+    # Merge training data (one combined text per folder)
+    training_data = merge_training_data()
 
-    # Transform the input list by removing the stop words and transforming the list
-    X_train_preprocess = X_train
-    X_train_transformed = knn.transform_list(X_train_preprocess)
+    # Clean training text
+    X_train = [stop_words_removal([text])[0] for text, _ in training_data]
+    y_train = [label for _, label in training_data]
 
-    knn.fit_list(X_train_transformed, y_train)
+    # Clean user input
+    input_clean = " ".join(
+        [
+            w
+            for w in word_tokenize(user_input.lower())
+            if w not in stopwords.words("english")
+        ]
+    )
 
-    # Returns the nearest closest index
-    predicted = knn.comparison(X_train_transformed, user_input)
+    # Initialize KNN
+    knn = KNearestNeighbors(k=1)  # k=1 is enough since one sample per folder
 
-    return knn.return_outcome(predicted)
+    # Fit KNN on TF-IDF vectors
+    X_train_vec = knn.transform_list(X_train)
+    knn.fit_list(X_train_vec, y_train)
+
+    # Predict the closest folder
+    predicted_index = knn.comparison(X_train_vec, input_clean)
+
+    # Map prediction index to folder name
+    predicted_folder = knn.return_outcome(predicted_index)
+
+    return predicted_folder
 
 
 def return_list_folders() -> List[str]:
-    """Returns the list of folders"""
-
+    """Returns the list of folders, sorted alphabetically for deterministic behavior"""
     folder_path = "archive"
-    folder_dir = os.listdir(folder_path)
-
+    folder_dir = sorted(os.listdir(folder_path))  # <- sorted!
     return folder_dir
 
 
 def label_folders() -> dict:
-    """Labels each folder with their number"""
-
-    labeling_dict = dict()
-
+    """Labels each folder with a number, consistently"""
+    labeling_dict = {}
     folder_dir = return_list_folders()
-
     for i, folder in enumerate(folder_dir):
         labeling_dict[folder] = i
-
     return labeling_dict
 
 
 def stop_words_removal(X_train: List[str]) -> List[str]:
-    """Removes stop words from the corpus and cleans up punctuation"""
-
+    """Removes stop words and punctuation from a list of text strings"""
     cached_stop_words = stopwords.words("english")
-
-    # Holds cleaned up text
     cleaned_texts = []
 
     for text in X_train:
         tokens = word_tokenize(text)
-        # Add word into list if its not a stop word or a punctuation
         cleaned_tokens = [
             word
             for word in tokens
             if word.lower() not in cached_stop_words and word not in string.punctuation
         ]
         cleaned_text = " ".join(cleaned_tokens)
-        fixed = cleaned_text.translate(str.maketrans("", "", string.punctuation))
-        cleaned_texts.append(fixed)
+        cleaned_texts.append(
+            cleaned_text.translate(str.maketrans("", "", string.punctuation))
+        )
 
     return cleaned_texts
 
 
-def merge_training_data() -> List[List[Tuple[str, int]]]:
-    """Merges the data within a list of tuples, where each tuple consists of two values: the first value containing the text content, and the second value containing the label"""
-
+def merge_training_data() -> List[Tuple[str, int]]:
+    """Merge all files in each folder into one text per folder for more reliable KNN."""
     labeling = label_folders()
-
-    # Folder path for training data
     folder_path = "archive"
-
-    # Returns the list of folders
-    folder_dir = return_list_folders()
-
-    # Holds tuple for file as well as the respected label
     all_rows = []
 
-    for folder in folder_dir:
-        curr_file = os.listdir(f"{folder_path}/{folder}")
-        for document in curr_file:
+    for folder in return_list_folders():
+        folder_texts = []
+        for file_name in os.listdir(f"{folder_path}/{folder}"):
             with open(
-                f"{folder_path}/{folder}/{document}", "r", encoding="utf-8"
-            ) as file:
-                all_rows.append([file.read(), labeling[folder]])
+                f"{folder_path}/{folder}/{file_name}", "r", encoding="utf-8"
+            ) as f:
+                folder_texts.append(f.read())
+        combined_text = " ".join(folder_texts)
+        all_rows.append((combined_text, labeling[folder]))
 
     return all_rows

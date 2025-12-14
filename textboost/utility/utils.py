@@ -100,6 +100,7 @@ def process_file_utilizer(user_input: str) -> None:
     """Processes file(s) from unprocessed list"""
     try:
         for i in file_utilizer.list:
+
             return customized_user_pdf_creation(i.file_path, i.file_name, user_input[0])
     except ValueError:
         return f"😮: No files found to be processed. Please add a file and try again."
@@ -149,6 +150,9 @@ def customized_user_pdf_creation(file_path: str, name: str, summarize: str) -> s
 
     # Determines folder location dependent on the model
     folder_location = knn.model_test(text)
+
+    with open("step2.txt", "a", encoding="utf-8") as f:
+        f.write("Folder location solution:" + "\n" + folder_location)
 
     # Create modified folder in string literal
     modified_folder = f"./modified/{folder_location}"

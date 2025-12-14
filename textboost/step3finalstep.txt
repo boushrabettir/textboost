@@ -1,0 +1,38 @@
+Folder final text location
+./modified/technology/test.mdFolder final text location
+./modified/technology/test.mdWriting modified markdown to: ./modified/technology/lol.md
+Modified text length: 2120
+Writing modified markdown to: ./modified/technology/testing.md
+Modified text length: 2120
+Writing modified markdown to: ./modified/technology/testing.md
+Modified text length: 2433
+Writing modified markdown to: ./modified/space/testing.md
+Modified text length: 2433
+Writing modified markdown to: ./modified/space/test.md
+Modified text length: 2433
+Writing modified markdown to: ./modified/space/testing.md
+Modified text length: 2120
+Writing modified markdown to: ./modified/food/testing.md
+Modified text length: 2587
+Writing modified markdown to: ./modified/food/testing.md
+Modified text length: 2584
+Writing modified markdown to: ./modified/sports/soccer.md
+Modified text length: 3033
+Folder final text location
+./modified/sports/hfuh.md
+Folder final text location:
+./modified/sports/gg.md
+Folder final text location:
+./modified/sports/ghif.md
+Writing modified markdown to: ./modified/medical/test.md
+Modified text length: 1506
+Writing modified markdown to: ./modified/food/testing1.md
+Modified text length: 1269
+Writing modified markdown to: ./modified/sports/test.md
+Modified text length: 1506
+Writing modified markdown to: ./modified/sports/sportsa.md
+Modified text length: 1506
+Writing modified markdown to: ./modified/sports/fifa.md
+Modified text length: 1506
+Writing modified markdown to: ./modified/sports/newfile.md
+Modified text length: 1506

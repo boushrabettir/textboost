@@ -1,0 +1,15 @@
+Innovation: Artificial Intelligence (AI) – Computers performing tasks that usually require human intelligence.
+
+Software: Python is a popular programming language used for web development, data analysis, and machine learning.
+
+Hardware: Quantum computers leverage quantum mechanics to perform complex calculations faster than classical computers.
+
+Trend: Cloud computing allows users to store and access data and programs over the internet.
+
+Research: Neural networks are a key component of deep learning algorithms.
+
+Fun Fact: The first computer virus was called "Creeper" and appeared in the early 1970s.
+
+Cultural: Open-source software encourages collaboration and free distribution of programs.
+
+Event: The launch of the first iPhone in 2007 revolutionized mobile computing.
